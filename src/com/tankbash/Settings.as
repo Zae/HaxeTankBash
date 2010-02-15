@@ -1,5 +1,5 @@
 ﻿/*
- * Settings class voor periscoopApp
+ * Settings class
  * 
  * Leest het settings.xml uit en
  * maakt dit uitleesbaar via properties
@@ -7,12 +7,10 @@
  * hetzelfde als E4X dus je merkt er niks
  * van. E4X FTW;
  */
-package nl.tsdme{
-	import adobe.utils.CustomActions;
+package com.tankbash{
 	import flash.net.URLRequest;
-	import flash.utils.Timer;
-	import nl.tsdme.*;
-	import flash.events.*;
+	import nl.tsdme.xmlLoader;
+	import flash.events.Event;
 	
 	/**
 	 * ...
@@ -53,20 +51,28 @@ package nl.tsdme{
 			return this._settings.meta;
 		}
 		/*
-		 * Getter voor het panoramas element
+		 * Getter voor het wall element
 		 * @return XMLList
 		 */
-		public function get panoramas():XMLList
+		public function get wall():XMLList
 		{
-			return this._settings.panoramas;
+			return this._settings.wall;
 		}
 		/*
-		 * Getter voor het dirt element
+		 * Getter voor het tank element
 		 * @return XMLList
 		 */
-		public function get dirt():XMLList
+		public function get tank():XMLList
 		{
-			return this._settings.dirt;
+			return this._settings.tank;
+		}
+		/*
+		 * Getter voor het tank element
+		 * @return XMLList
+		 */
+		public function get ammo():XMLList
+		{
+			return this._settings.ammo;
 		}
 	}
 }

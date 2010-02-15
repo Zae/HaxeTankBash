@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<tankBash>
+	<meta>
+		<creator>Groep ?</creator>
+		<creator>Ezra Pool</creator>
+		<creator>Sytze Andreae</creator>
+		<creator>André Vink</creator>
+		<creator>Sander Smit</creator>
+	</meta>
+	<wall>
+		<wood hp="10" />
+		<metal hp="40" />
+		<concrete hp="90" />
+	</wall>
+	<tank></tank>
+	<ammo></ammo>
+</tankBash>

@@ -13,6 +13,8 @@
 	{
 		private var ammo:Ammo = new Ammo();
 		
+		public var settings:Settings;
+		
 		public function Main():void 
 		{
 			if (stage) init();
@@ -22,10 +24,13 @@
 		private function init(e:Event = null):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-			// entry point
-			addChild(ammo);
-			this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_FIRED, ammo));
+			settings = new Settings();
+			settings.addEventListener(Event.COMPLETE, settingsLoaded);
 		}
-		
+		private function settingsLoaded(e:Event):void 
+		{
+			// entry point
+			
+		}
 	}
 }
