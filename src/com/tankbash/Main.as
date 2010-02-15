@@ -5,7 +5,9 @@
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.KeyboardEvent;
+	import flash.events.TimerEvent;
 	import flash.ui.Keyboard;
+	import flash.utils.Timer;
 	
 	/**
 	 * ...
@@ -17,6 +19,7 @@
 		public var tank:Tank;
 		private var lvl:LevelOne;
 		private var walls:Array;
+		private var timer:Timer;
 		
 		private static var _instance:Main;
 		public static function get instance():Main { return _instance; }
@@ -41,13 +44,29 @@
 			lvl = new LevelOne();
 			addChild(tank);
 			addChild(lvl);
-			walls = new Array(new Wall(Wall.TYPE_WOOD), new Wall(Wall.TYPE_WOOD));
-			addChild(walls[0]);
-			addChild(walls[1]);
-			
+			walls = new Array();
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyboardHandler);
+			timer = new Timer(10 * 1000);
+			timer.addEventListener(TimerEvent.TIMER, onTimerTik);
+			timer.start();
 		}
-		
+		private function onTimerTik(e:TimerEvent):void
+		{
+			var tmp:Wall = new Wall(Wall.TYPE_WOOD);
+			addChild(tmp);
+			tmp.addEventListener(WallEvent.WALL_DESTROYED, onWallEvent);
+			walls.push(tmp);
+		}
+		private function onWallEvent(e:WallEvent):void 
+		{
+			trace("muurtje weghalen");
+			var index:int = walls.indexOf(e.wall);
+			try {
+				removeChild(walls[index]);
+			}catch (err:Error){}
+			walls[index] = null;
+			walls.splice(index, 1);
+		}
 		private function keyboardHandler(e:KeyboardEvent):void
 		{
 			switch (e.keyCode)

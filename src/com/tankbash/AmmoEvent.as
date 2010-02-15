@@ -18,7 +18,8 @@
 		
 		public function AmmoEvent(type:String="AmmoEventFired", ammo:Ammo=null, bubbles:Boolean=false, cancelable:Boolean=false) 
 		{ 
-			if (ammo){
+			if (ammo)
+			{
 				Ammo_Reference = ammo;
 				super(type, bubbles, cancelable);
 			}

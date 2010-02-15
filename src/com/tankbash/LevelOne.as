@@ -9,7 +9,7 @@
 	 */
 	public class LevelOne extends MovieClip
 	{
-		[Embed(source = "../../../assets/smile.jpg")]
+		[Embed(source = "../../../assets/visual_level1.png")]
 		private var bg:Class;
 		
 		public function LevelOne() 

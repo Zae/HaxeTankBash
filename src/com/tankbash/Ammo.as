@@ -16,11 +16,11 @@
 		public static const TYPE_CANNON:String = "AmmoType_Cannon";
 		public static const TYPE_DEFAULT:String = TYPE_BULLETS;
 		
-		[Embed(source="../../../assets/smile.jpg")]
+		[Embed(source="../../../assets/rocket.png")]
 		private static var RocketVisual:Class;
-		[Embed(source="../../../assets/smile.jpg")]
+		[Embed(source="../../../assets/bullet.png")]
 		private static var BulletsVisual:Class;
-		[Embed(source="../../../assets/smile.jpg")]
+		[Embed(source="../../../assets/tank_bullet.png")]
 		private static var CannonVisual:Class;
 		
 		private var _strength:int;
@@ -36,7 +36,7 @@
 					break;
 				case TYPE_BULLETS:
 					addChild(new BulletsVisual());
-					_strength = Main.instance.settings.ammo.bullet.@strength;
+					_strength = Main.instance.settings.ammo.bullets.@strength;
 					break;
 				case TYPE_CANNON:
 					addChild(new CannonVisual());

@@ -13,7 +13,7 @@
 	 */
 	public class Tank extends MovieClip
 	{
-		[Embed(source = "../../../assets/tank.jpg")]
+		[Embed(source = "../../../assets/tank_niveau0.png")]
 		private var t:Class;
 		private var tank:Bitmap;
 		
@@ -35,18 +35,21 @@
 
 			this._ammo = new Ammo(this._ammoType);
 			this._ammo.addEventListener(AmmoEvent.AMMO_DESTROYED, onAmmoDestroyed);
-
-		};
-		
+			this._ammo.addEventListener(AmmoEvent.AMMO_MOVE, onAmmoMove);
+		}
+		private function onAmmoMove(e:AmmoEvent):void 
+		{
+			this.dispatchEvent(e);  
+		}
 		/**
 		 * Dispatches the shooting event
 		 */
 		public function shoot():void
 		{
 			this.ammoFlying = true;
-			addChild(this.currentAmmo);
+			this.addChild(this._ammo);			
 			this.currentAmmo.fire();
-			//this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_FIRED, this.currentAmmo));
+			this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_FIRED, this.currentAmmo));
 		};
 		
 		/**
@@ -55,7 +58,7 @@
 		public function destroy():void
 		{
 			removeChild(tank);
-		};
+		}
 		
 		/**
 		 * Get the current health
@@ -87,8 +90,8 @@
 		{
 			trace("KABOOOOM");
 			try {
-				removeChild(this._ammo);
-			}catch (err:Error){}
+				this.removeChild(this._ammo);
+			}catch (err:Error) { trace(err); }
 			this._ammo = new Ammo(this._ammoType);
 			this._ammo.addEventListener(AmmoEvent.AMMO_DESTROYED, onAmmoDestroyed);
 			this.ammoFlying = false;
@@ -100,7 +103,7 @@
 		public function get currentAmmo():Ammo
 		{
 			return _ammo;
-		};
+		}
 	}
 
 }
