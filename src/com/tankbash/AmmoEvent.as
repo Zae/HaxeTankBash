@@ -8,11 +8,13 @@
 	 * @version 0.1
 	 * @eventType Ammo_Fired
 	 */
-	public class Ammo_Fired extends Event 
+	public class AmmoEvent extends Event 
 	{
 		private var Ammo_Reference:Ammo;
 		
-		public function Ammo_Fired(type:String, bubbles:Boolean=false, cancelable:Boolean=false, ammo:Ammo=null) 
+		public static const AMMO_FIRED:String = "AmmoEventFired";
+		
+		public function AmmoEvent(type:String="AmmoEventFired", ammo:Ammo=null, bubbles:Boolean=false, cancelable:Boolean=false) 
 		{ 
 			if (ammo){
 				Ammo_Reference = ammo;
@@ -33,7 +35,7 @@
 		 */
 		public override function toString():String 
 		{ 
-			return formatToString("Ammo_Fired", "type", "bubbles", "cancelable", "eventPhase"); 
+			return formatToString("AmmoEvent", "type", "bubbles", "cancelable", "eventPhase"); 
 		}
 		
 		public function get ammo():Ammo 
