@@ -34,7 +34,7 @@
 				case TYPE_CONCRETE:
 					addChild(new ConcreteVisual());
 					_hp = 80;
-					break;
+					break; 
 			}
 			Main.instance.tank.addEventListener(AmmoEvent.AMMO_FIRED, onAmmoFire);
 		}

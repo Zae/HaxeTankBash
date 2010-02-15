@@ -15,7 +15,7 @@
 	{
 		public var settings:Settings;
 		public var tank:Tank;
-		
+		private var lvl:LevelOne;
 		private var walls:Array;
 		
 		private static var _instance:Main;
@@ -38,8 +38,9 @@
 		private function settingsLoaded(e:Event):void 
 		{
 			tank = new Tank();
+			lvl = new LevelOne();
 			addChild(tank);
-			
+			addChild(lvl);
 			walls = new Array(new Wall(Wall.TYPE_WOOD), new Wall(Wall.TYPE_WOOD));
 			addChild(walls[0]);
 			addChild(walls[1]);
