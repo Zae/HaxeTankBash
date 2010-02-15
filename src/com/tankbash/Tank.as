@@ -32,8 +32,10 @@
 			this._ammoType = Ammo.TYPE_DEFAULT;
 			tank = new t();
 			addChild(tank);
+
 			this._ammo = new Ammo(this._ammoType);
 			this._ammo.addEventListener(AmmoEvent.AMMO_DESTROYED, onAmmoDestroyed);
+
 		};
 		
 		/**

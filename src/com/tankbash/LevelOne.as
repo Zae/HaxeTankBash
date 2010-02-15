@@ -17,7 +17,7 @@
 			init();
 		}
 		
-		public function init():void 
+		private function init():void 
 		{
 			addChild(new bg());
 			this.x = Main.instance.stage.stageWidth;
