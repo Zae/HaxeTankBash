@@ -46,7 +46,7 @@
 		 */
 		public function destroy():void
 		{
-			
+			removeChild(tank);
 		};
 		
 		/**
@@ -76,6 +76,14 @@
 			_ammo = new Ammo(setAmmo);
 		};
 		
+		/**
+		 * Get the current ammo type
+		 * @return Ammo the current ammo type
+		 */
+		public function get currentAmmo():Ammo
+		{
+			return _ammo;
+		};
 	}
 
 }
