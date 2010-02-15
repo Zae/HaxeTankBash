@@ -4,6 +4,8 @@
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
+	import flash.events.KeyboardEvent;
+	import flash.ui.Keyboard;
 	
 	/**
 	 * ...
@@ -11,7 +13,7 @@
 	 */
 	public class Main extends MovieClip
 	{
-		private var ammo:Ammo = new Ammo();
+		private var tank:Tank;
 		
 		public var settings:Settings;
 		
@@ -27,10 +29,24 @@
 			settings = new Settings();
 			settings.addEventListener(Event.COMPLETE, settingsLoaded);
 		}
+		
 		private function settingsLoaded(e:Event):void 
 		{
-			// entry point
+			tank = new Tank();
+			addChild(tank);
 			
+			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyboardHandler);
+		}
+		
+		private function keyboardHandler(e:KeyboardEvent):void
+		{
+			switch (e.keyCode)
+			{
+				case Keyboard.SPACE:
+					tank.shoot();
+					trace('SPACEBAR PRESSED: tank.shoot()');
+					break;
+			}
 		}
 	}
 }

@@ -11,6 +11,7 @@ package com.tankbash{
 	import flash.net.URLRequest;
 	import nl.tsdme.xmlLoader;
 	import flash.events.Event;
+	import flash.events.EventDispatcher;
 	
 	/**
 	 * ...
