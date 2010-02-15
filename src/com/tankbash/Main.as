@@ -9,6 +9,7 @@
 	 */
 	public class Main extends Sprite 
 	{
+		private var ammo:Ammo = new Ammo();
 		
 		public function Main():void 
 		{
@@ -20,8 +21,8 @@
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			// entry point
+			addChild(ammo);
 		}
 		
 	}
-	
 }
