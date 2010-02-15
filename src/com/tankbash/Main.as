@@ -13,9 +13,8 @@
 	 */
 	public class Main extends MovieClip
 	{
-		private var tank:Tank;
-		
 		public var settings:Settings;
+		private var tank:Tank;
 		
 		public function Main():void 
 		{
@@ -23,7 +22,7 @@
 			else addEventListener(Event.ADDED_TO_STAGE, init);
 		}
 		
-		private function init(e:Event = null):void 
+		private function init(e:Event = null):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			settings = new Settings();
