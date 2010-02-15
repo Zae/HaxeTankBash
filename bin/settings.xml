@@ -13,5 +13,9 @@
 		<concrete hp="90" />
 	</wall>
 	<tank></tank>
-	<ammo></ammo>
+	<ammo>
+		<bullets speed=".4" strength="10" />
+		<rocket speed=".9" strength="70" />
+		<cannon speed=".6" strength="40" />
+	</ammo>
 </tankBash>

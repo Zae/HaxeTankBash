@@ -40,8 +40,22 @@
 		}
 		private function onAmmoFire(e:AmmoEvent):void 
 		{
-			//powpow
-			trace("powpow");
+			Main.instance.tank.addEventListener(AmmoEvent.AMMO_MOVE, onAmmoMove);
+		}
+		private function onAmmoMove(e:AmmoEvent):void 
+		{
+			if (e.ammo.hitTestObject(this)) {
+				//paf
+				this._hp -= e.ammo.strength;
+				e.ammo.hit();
+				if (this._hp <= 0) {
+					this.destroyed();
+				}
+			}
+		}
+		private function destroyed():void 
+		{
+			
 		}
 	}
 
