@@ -13,6 +13,8 @@
 		private var Ammo_Reference:Ammo;
 		
 		public static const AMMO_FIRED:String = "AmmoEventFired";
+		public static const AMMO_MOVE:String = "AmmoEventMove";
+		public static const AMMO_DESTROYED:String = "AmmoEventDestroyed";
 		
 		public function AmmoEvent(type:String="AmmoEventFired", ammo:Ammo=null, bubbles:Boolean=false, cancelable:Boolean=false) 
 		{ 

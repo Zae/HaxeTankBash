@@ -12,7 +12,7 @@
 		public static const TYPE_METAL:String = "WallType_Metal";
 		public static const TYPE_CONCRETE:String = "WallType_Concrete";
 		
-		[(Embed(source="../../assets/smile.jpg"))]
+		[Embed(source="../../../assets/smile.jpg")]
 		private static var WoodVisual:Class;
 		private static var MetalVisual:Class;
 		private static var ConcreteVisual:Class;
@@ -36,9 +36,13 @@
 					_hp = 80;
 					break;
 			}
-			
+			Main.instance.tank.addEventListener(AmmoEvent.AMMO_FIRED, onAmmoFire);
 		}
-		
+		private function onAmmoFire(e:AmmoEvent):void 
+		{
+			//powpow
+			trace("powpow");
+		}
 	}
 
 }

@@ -14,10 +14,16 @@
 	public class Main extends MovieClip
 	{
 		public var settings:Settings;
-		private var tank:Tank;
+		public var tank:Tank;
+		
+		private var walls:Array;
+		
+		private static var _instance:Main;
+		public static function get instance():Main { return _instance; }
 		
 		public function Main():void 
 		{
+			_instance = this;
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init);
 		}
@@ -33,6 +39,10 @@
 		{
 			tank = new Tank();
 			addChild(tank);
+			
+			walls = new Array(new Wall(Wall.TYPE_WOOD), new Wall(Wall.TYPE_WOOD));
+			addChild(walls[0]);
+			addChild(walls[1]);
 			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyboardHandler);
 		}

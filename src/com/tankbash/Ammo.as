@@ -1,5 +1,6 @@
 ﻿package com.tankbash 
 {
+	import com.greensock.TweenLite;
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	
@@ -41,8 +42,17 @@
 		 * @return Boolean Has the ammo been fired?
 		 */
 		public function fire():Boolean{
-			//..woooosh - start animation
+			TweenLite.to(this, 5, { x:Main.instance.stage.stageWidth, onUpdate: onAmmoMove, onComplete: onAmmoComplete } );
 			return false;
+		}
+		private function onAmmoMove():void 
+		{
+			this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_MOVE, this));
+		}
+		private function onAmmoComplete():void 
+		{
+			this._strenght = 0;
+			this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_DESTROYED, this));
 		}
 		public function get strenght():int
 		{

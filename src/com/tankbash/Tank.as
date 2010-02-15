@@ -29,8 +29,7 @@
 		{
 			tank = new t();
 			addChild(tank);
-			
-			_ammo = new Ammo();
+			this.ammo = new Ammo(Ammo.TYPE_BULLETS);
 		};
 		
 		/**
@@ -38,7 +37,8 @@
 		 */
 		public function shoot():void
 		{
-			this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_FIRED, _ammo));
+			this.currentAmmo.fire();
+			this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_FIRED, this.currentAmmo));
 		};
 		
 		/**
