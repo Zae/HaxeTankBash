@@ -27,8 +27,8 @@
 		 */
 		public override function clone():Event 
 		{ 
-			return new Ammo_Fired(type, bubbles, cancelable);
-		} 
+			return new AmmoEvent(type, ammo, bubbles, cancelable);
+		}
 		/**
 		 * express the object as a string
 		 * @return String
