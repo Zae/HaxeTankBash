@@ -10,9 +10,9 @@
 	 **/
 	public class Ammo extends MovieClip
 	{
-		public const TYPE_ROCKET:String = "AmmoType_Rocket";
-		public const TYPE_BULLETS:String = "AmmoType_Bullets";
-		public const TYPE_CANNON:String = "AmmoType_Cannon";
+		public static const TYPE_ROCKET:String = "AmmoType_Rocket";
+		public static const TYPE_BULLETS:String = "AmmoType_Bullets";
+		public static const TYPE_CANNON:String = "AmmoType_Cannon";
 		
 		[Embed(source="../../../assets/smile.jpg")]
 		private static var RocketVisual:Class;

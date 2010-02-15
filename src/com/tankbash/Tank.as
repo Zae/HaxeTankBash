@@ -18,8 +18,8 @@
 		private var tank:Bitmap;
 		
 		private var _health:int;
-		private var _ammo:String;
-		
+		private var _ammo:Ammo;
+				
 		public function Tank() 
 		{
 			init();
@@ -29,6 +29,8 @@
 		{
 			tank = new t();
 			addChild(tank);
+			
+			_ammo = new Ammo();
 		};
 		
 		/**
@@ -36,8 +38,7 @@
 		 */
 		public function shoot():void
 		{
-			var shootEvent: EventDispatcher = new EventDispatcher();
-			shootEvent.dispatchEvent(new Ammo_Fired());
+			this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_FIRED, _ammo));
 		};
 		
 		/**
@@ -72,7 +73,7 @@
 		 */
 		public function set ammo(setAmmo:String):void
 		{
-			_ammo = setAmmo;
+			_ammo = new Ammo(setAmmo);
 		};
 		
 	}
