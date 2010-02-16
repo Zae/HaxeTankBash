@@ -49,6 +49,7 @@
 			tank.x = 115;
 			tank.scaleX = .3;
 			tank.scaleY = .3;
+			
 			lvl = new LevelOne();
 			addChild(lvl);
 			addChild(tank);
@@ -61,7 +62,7 @@
 			addChild(tmp);
 			tmp.addEventListener(WallEvent.WALL_DESTROYED, onWallEvent);
 			walls.push(tmp);
-			timer.delay -= 100;
+			timer.delay -= 500;
 		}
 		private function onWallEvent(e:WallEvent):void 
 		{

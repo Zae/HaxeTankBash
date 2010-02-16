@@ -11,6 +11,7 @@
 		private var Wall_Reference:Wall;
 		
 		public static const WALL_DESTROYED:String = "WallEventDestroyed";
+		public static const WALL_MOVE:String = "WallEventMove";
 		
 		public function WallEvent(type:String="WallEventDestroyed", wall:Wall=null, bubbles:Boolean=false, cancelable:Boolean=false) 
 		{ 
