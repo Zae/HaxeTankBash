@@ -42,8 +42,8 @@
 		{
 			tank = new Tank();
 			lvl = new LevelOne();
-			addChild(tank);
 			addChild(lvl);
+			addChild(tank);
 			walls = new Array();
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyboardHandler);
 			timer = new Timer(10 * 1000);
@@ -69,12 +69,26 @@
 		}
 		private function keyboardHandler(e:KeyboardEvent):void
 		{
+			trace(e.keyCode);
 			switch (e.keyCode)
 			{
 				case Keyboard.SPACE:
 					tank.shoot();
 					trace('SPACEBAR PRESSED: tank.shoot()');
 					break;
+					
+				case 49:
+					tank.setAmmoType = Ammo.TYPE_BULLETS;
+					break;
+					
+				case 50:
+					tank.setAmmoType = Ammo.TYPE_ROCKET;
+					break;
+					
+				case 51:
+					tank.setAmmoType = Ammo.TYPE_CANNON;
+					break;
+				
 			}
 		}
 	}
