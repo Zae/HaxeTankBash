@@ -85,6 +85,7 @@
 		public function set setAmmoType(setAmmo:String):void
 		{
 			_ammoType = setAmmo;
+			//this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_RELOAD, currentAmmo));
 		}
 		private function onAmmoDestroyed(e:AmmoEvent):void 
 		{
