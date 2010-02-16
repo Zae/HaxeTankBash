@@ -24,6 +24,9 @@
 		private var building:Bitmap;
 		private var buildingStart:Bitmap;
 		
+		private var time1:int = 8;
+		private var time2:int = 13;
+		
 		public function LevelOne() 
 		{
 			init();
@@ -53,28 +56,30 @@
 			addChild(roadStart);
 			
 			TweenLite.to(roadStart, 10, { x: -roadStart.width, ease:Linear.easeNone } );
-			TweenLite.to(buildingStart, 15, { x:-buildingStart.width, ease:Linear.easeNone } );
+			TweenLite.to(buildingStart, 10, { x:-buildingStart.width, ease:Linear.easeNone } );
 			
-			TweenLite.to(road, 10, { x:0, onComplete:roadComplete, ease:Linear.easeNone } );
-			TweenLite.to(building, 15, { x:0, onComplete:buildingComplete,ease:Linear.easeNone } );
+			TweenLite.to(road, 10, { x:0, onComplete:tweenComplete, ease:Linear.easeNone } );
+			TweenLite.to(building, 10, { x:0 ,ease:Linear.easeNone } );
 		}
 		
-		private function roadComplete():void
+		private function tweenComplete():void
 		{
 			road.x = road.width;
-			roadStart.x = 0;
-			TweenLite.to(road, 10, { x:0, onComplete:roadComplete, ease:Linear.easeNone } );
-			TweenLite.to(roadStart, 10, { x: -roadStart.width, ease:Linear.easeNone } );
+			building.x = building.width;
 			
+			buildingStart.x = 0;
+			roadStart.x = 0;
+						
+			TweenLite.to(road, time1, { x:0, onComplete:tweenComplete, ease:Linear.easeNone } );
+			TweenLite.to(roadStart, time1, { x: -roadStart.width, ease:Linear.easeNone } );
+			
+			TweenLite.to(building, time1, { x:0 , ease:Linear.easeNone } );
+			TweenLite.to(buildingStart, time1, { x: -buildingStart.width, ease:Linear.easeNone } );
+			
+			if (time1 != 2)
+			time1 -= 1;
 		}
 		
-		private function buildingComplete():void
-		{
-			building.x = building.width;
-			buildingStart.x = 0;
-			TweenLite.to(buildingStart, 15, { x: -buildingStart.width, ease:Linear.easeNone } );
-			TweenLite.to(building, 15, { x:0, onComplete:buildingComplete,ease:Linear.easeNone } );
-		}
 		
 	}
 
