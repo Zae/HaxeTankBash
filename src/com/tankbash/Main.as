@@ -19,7 +19,7 @@
 		public var tank:Tank;
 		private var lvl:LevelOne;
 		private var walls:Array;
-		private var timer:Timer;
+		public var timer:Timer;
 		
 		private static var _instance:Main;
 		public static function get instance():Main { return _instance; }
@@ -60,6 +60,7 @@
 			addChild(tmp);
 			tmp.addEventListener(WallEvent.WALL_DESTROYED, onWallEvent);
 			walls.push(tmp);
+			timer.delay -= 100;
 		}
 		private function onWallEvent(e:WallEvent):void 
 		{
@@ -67,19 +68,24 @@
 			{
 				case WallEvent.WALL_DESTROYED:
 					trace("muurtje weghalen");
-					var index:int = walls.indexOf(e.wall);
-					for (var i:int = 0; i < this.numChildren; i++)
-					{
-						if (this.getChildAt(i) === e.wall) {
-							trace("FOUND-WALL!");
-							this.removeChildAt(i);
-							break;
+					for (var j:int; j < walls.length; j++) {
+						if(walls[j] === e.wall){
+							trace("wallIndex"+j);
+							for (var i:int = 0; i < this.numChildren; i++)
+							{
+								if (this.getChildAt(i) === e.wall) {
+									trace("FOUND-WALL!");
+									this.removeChildAt(i);
+									break;
+								}
+								trace("CAN'T FIND IT-WALL");
+							}
 						}
-						trace("CAN'T FIND IT-WALL");
+						
+						walls[j].removeEventListener(WallEvent.WALL_DESTROYED, onWallEvent);						
+						walls[j] = null;
+						walls.splice(j, 1);
 					}
-					
-					walls[index] = null;
-					walls.splice(index, 1);
 					break;
 			}
 		}

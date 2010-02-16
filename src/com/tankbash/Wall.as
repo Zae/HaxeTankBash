@@ -64,6 +64,8 @@
 		}
 		private function destroyed():void 
 		{
+			Main.instance.tank.removeEventListener(AmmoEvent.AMMO_MOVE, onAmmoMove);
+			Main.instance.tank.removeEventListener(AmmoEvent.AMMO_FIRED, onAmmoFire);
 			this.dispatchEvent(new WallEvent(WallEvent.WALL_DESTROYED, this));
 		}
 	}
