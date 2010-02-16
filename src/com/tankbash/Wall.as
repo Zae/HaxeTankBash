@@ -1,6 +1,9 @@
 ﻿package com.tankbash 
 {
+	import com.greensock.TweenLite;
 	import flash.display.MovieClip;
+	import flash.events.TimerEvent;
+	import com.greensock.easing.*;
 	
 	/**
 	 * ...
@@ -22,6 +25,8 @@
 		private var _hp:int;
 		private var _wallType:String;
 		
+		private var moveTween:TweenLite;
+		
 		public function Wall(wallType:String) 
 		{
 			this._wallType = wallType;
@@ -41,6 +46,25 @@
 					break; 
 			}
 			Main.instance.tank.addEventListener(AmmoEvent.AMMO_FIRED, onAmmoFire);
+			
+			this.scaleX = .5;
+			this.scaleY = .5;
+			this.x = Main.instance.stage.stageWidth;
+			this.y = Main.instance.stage.stageHeight-300;
+			moveTween = TweenLite.to(this, Main.instance.timer.delay / 1000, { x: 0, ease: Linear.easeNone, onUpdate: onWallMove, onComplete: onMoveComplete } );
+			trace(Main.instance.timer.delay / 1000);
+		}
+		private function onMoveComplete():void 
+		{
+			this.destroyed();
+		}
+		private function onWallMove():void 
+		{
+			this.dispatchEvent(new WallEvent(WallEvent.WALL_MOVE, this));
+			if (this.hitTestObject(Main.instance.tank)) {
+				Main.instance.tank.destroy();
+				this.destroyed();
+			}
 		}
 		private function onAmmoFire(e:AmmoEvent):void 
 		{
@@ -67,6 +91,7 @@
 			Main.instance.tank.removeEventListener(AmmoEvent.AMMO_MOVE, onAmmoMove);
 			Main.instance.tank.removeEventListener(AmmoEvent.AMMO_FIRED, onAmmoFire);
 			this.dispatchEvent(new WallEvent(WallEvent.WALL_DESTROYED, this));
+			moveTween.kill();
 		}
 	}
 

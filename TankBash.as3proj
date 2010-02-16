@@ -43,7 +43,7 @@
   </includeLibraries>
   <!-- SWC Libraries -->
   <libraryPaths>
-    <!-- example: <element path="..." /> -->
+    <element path="assets\tanks_animation.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

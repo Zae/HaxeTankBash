@@ -45,16 +45,34 @@
 			timer.start();
 			
 			tank = new Tank();
-			tank.y = stage.stageHeight - 200;
-			tank.x = 115;
-			tank.scaleX = .3;
-			tank.scaleY = .3;
+			tank.y = stage.stageHeight - 280;
+			tank.x = 175;
+			tank.scaleX = .4;
+			tank.scaleY = .4;
+			tank.addEventListener(TankEvent.TANK_DESTROYED, onTankEvent);
 			
 			lvl = new LevelOne();
 			addChild(lvl);
 			addChild(tank);
 			walls = new Array();
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyboardHandler);
+		}
+		private function onTankEvent(e:TankEvent):void 
+		{
+			switch (e.type) 
+			{
+				case TankEvent.TANK_DESTROYED:
+					for (var i:int = 0; i < this.numChildren; i++)
+					{
+						if (this.getChildAt(i) === e.tank)
+						{
+							this.removeChildAt(i);
+							tank = null;
+							break;
+						}
+					}
+					break;
+			}
 		}
 		private function onTimerTik(e:TimerEvent):void
 		{

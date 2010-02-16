@@ -1,5 +1,7 @@
 ﻿package com.tankbash
 {
+	import containing_fla.tank_niveau0_8;
+	import containing_fla.tank_niveau1_7;
 	import flash.display.MovieClip;
 	import flash.net.URLRequest;
 	import flash.display.Loader;
@@ -13,24 +15,21 @@
 	 */
 	public class Tank extends MovieClip
 	{
-		[Embed(source = "../../../assets/tank_niveau0.png")]
-		private var t:Class;
-		private var tank:Bitmap;
+		private var tank:*;
 		
 		private var _health:int;
 		private var _ammo:Ammo;
 		private var _ammoType:String;
 		private var ammoFlying:Boolean = false;
-				
+		
 		public function Tank() 
 		{
 			init();
-		}
-		
+		}		
 		private function init():void
 		{
 			this._ammoType = Ammo.TYPE_DEFAULT;
-			tank = new t();
+			tank = new tank_niveau0_8();
 			addChild(tank);
 		}
 		private function onAmmoMove(e:AmmoEvent):void 
@@ -58,7 +57,7 @@
 		 */
 		public function destroy():void
 		{
-			removeChild(tank);
+			this.dispatchEvent(new TankEvent(TankEvent.TANK_DESTROYED));
 		}
 		
 		/**
@@ -86,7 +85,6 @@
 		public function set setAmmoType(setAmmo:String):void
 		{
 			_ammoType = setAmmo;
-			//this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_RELOAD, currentAmmo));
 		}
 		private function onAmmoDestroyed(e:AmmoEvent):void 
 		{
@@ -97,6 +95,9 @@
 				if (this.getChildAt(i) === this._ammo) {
 					trace("FOUND!"+e.ammo.strength);
 					this.removeChildAt(i);
+					this._ammo.removeEventListener(AmmoEvent.AMMO_DESTROYED, onAmmoDestroyed);
+					this._ammo.removeEventListener(AmmoEvent.AMMO_MOVE, onAmmoMove);
+					this._ammo = null;
 					break;
 				}
 				trace("CAN'T FIND IT");
