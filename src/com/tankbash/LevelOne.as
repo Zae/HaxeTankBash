@@ -4,6 +4,7 @@
 	import flash.display.Bitmap;
 	import com.greensock.TweenLite;
 	import com.greensock.easing.*;
+	import flash.events.TimerEvent;
 	/**
 	 * ...
 	 * @author Sytze
@@ -24,9 +25,7 @@
 		private var building:Bitmap;
 		private var buildingStart:Bitmap;
 		
-		private var time1:int = 8;
-		private var time2:int = 13;
-		
+		private var tweenTime:Number;
 		public function LevelOne() 
 		{
 			init();
@@ -59,7 +58,9 @@
 			TweenLite.to(buildingStart, 10, { x:-buildingStart.width, ease:Linear.easeNone } );
 			
 			TweenLite.to(road, 10, { x:0, onComplete:tweenComplete, ease:Linear.easeNone } );
-			TweenLite.to(building, 10, { x:0 ,ease:Linear.easeNone } );
+			TweenLite.to(building, 10, { x:0 , ease:Linear.easeNone } );
+			
+			Main.instance.timer.addEventListener(TimerEvent.TIMER, onTimerTick);
 		}
 		
 		private function tweenComplete():void
@@ -70,14 +71,18 @@
 			buildingStart.x = 0;
 			roadStart.x = 0;
 						
-			TweenLite.to(road, time1, { x:0, onComplete:tweenComplete, ease:Linear.easeNone } );
-			TweenLite.to(roadStart, time1, { x: -roadStart.width, ease:Linear.easeNone } );
+			TweenLite.to(road, tweenTime, { x:0, onComplete:tweenComplete, ease:Linear.easeNone } );
+			TweenLite.to(roadStart, tweenTime, { x: -roadStart.width, ease:Linear.easeNone } );
 			
-			TweenLite.to(building, time1, { x:0 , ease:Linear.easeNone } );
-			TweenLite.to(buildingStart, time1, { x: -buildingStart.width, ease:Linear.easeNone } );
+			TweenLite.to(building, tweenTime, { x:0 , ease:Linear.easeNone } );
+			TweenLite.to(buildingStart, tweenTime, { x: -buildingStart.width, ease:Linear.easeNone } );
 			
-			if (time1 != 2)
-			time1 -= 1;
+		}
+		
+		private function onTimerTick(e:TimerEvent):void
+		{
+			tweenTime = Main.instance.timer.delay;
+			tweenTime /= 1000;
 		}
 		
 		
