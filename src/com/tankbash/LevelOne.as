@@ -24,8 +24,7 @@
 		private var roadStart:Bitmap;
 		private var building:Bitmap;
 		private var buildingStart:Bitmap;
-		
-		private var tweenTime:Number;
+
 		public function LevelOne() 
 		{
 			init();
@@ -38,14 +37,14 @@
 			building = new _building();
 			buildingStart = new _building();
 			
-			road.y = 166;
-			building.y = 80;
+			road.y = 245;
+			building.y = 90;
 			
 			road.x = road.width;
 			building.x = building.width;
 			
-			roadStart.y = 166;
-			buildingStart.y = 80;
+			roadStart.y = 245;
+			buildingStart.y = 90;
 			
 			addChild(new bg());
 			addChild(building);
@@ -54,13 +53,11 @@
 			addChild(buildingStart);
 			addChild(roadStart);
 			
-			TweenLite.to(roadStart, 10, { x: -roadStart.width, ease:Linear.easeNone } );
-			TweenLite.to(buildingStart, 10, { x:-buildingStart.width, ease:Linear.easeNone } );
+			TweenLite.to(roadStart, (Main.instance.timer.delay / 1000), { x: -roadStart.width, ease:Linear.easeNone } );
+			TweenLite.to(buildingStart, (Main.instance.timer.delay / 1000), { x:-buildingStart.width, ease:Linear.easeNone } );
 			
-			TweenLite.to(road, 10, { x:0, onComplete:tweenComplete, ease:Linear.easeNone } );
-			TweenLite.to(building, 10, { x:0 , ease:Linear.easeNone } );
-			
-			Main.instance.timer.addEventListener(TimerEvent.TIMER, onTimerTick);
+			TweenLite.to(road, (Main.instance.timer.delay / 1000), { x:0, onComplete:tweenComplete, ease:Linear.easeNone } );
+			TweenLite.to(building, (Main.instance.timer.delay / 1000), { x:0 , ease:Linear.easeNone } );
 		}
 		
 		private function tweenComplete():void
@@ -71,18 +68,12 @@
 			buildingStart.x = 0;
 			roadStart.x = 0;
 						
-			TweenLite.to(road, tweenTime, { x:0, onComplete:tweenComplete, ease:Linear.easeNone } );
-			TweenLite.to(roadStart, tweenTime, { x: -roadStart.width, ease:Linear.easeNone } );
+			TweenLite.to(road, (Main.instance.timer.delay / 1000), { x:0, onComplete:tweenComplete, ease:Linear.easeNone } );
+			TweenLite.to(roadStart, (Main.instance.timer.delay / 1000), { x: -roadStart.width, ease:Linear.easeNone } );
 			
-			TweenLite.to(building, tweenTime, { x:0 , ease:Linear.easeNone } );
-			TweenLite.to(buildingStart, tweenTime, { x: -buildingStart.width, ease:Linear.easeNone } );
+			TweenLite.to(building, (Main.instance.timer.delay / 1000), { x:0 , ease:Linear.easeNone } );
+			TweenLite.to(buildingStart, (Main.instance.timer.delay / 1000), { x: -buildingStart.width, ease:Linear.easeNone } );
 			
-		}
-		
-		private function onTimerTick(e:TimerEvent):void
-		{
-			tweenTime = Main.instance.timer.delay;
-			tweenTime /= 1000;
 		}
 		
 		
