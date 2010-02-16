@@ -32,10 +32,6 @@
 			this._ammoType = Ammo.TYPE_DEFAULT;
 			tank = new t();
 			addChild(tank);
-
-			this._ammo = new Ammo(this._ammoType);
-			this._ammo.addEventListener(AmmoEvent.AMMO_DESTROYED, onAmmoDestroyed);
-			this._ammo.addEventListener(AmmoEvent.AMMO_MOVE, onAmmoMove);
 		}
 		private function onAmmoMove(e:AmmoEvent):void 
 		{
@@ -46,11 +42,16 @@
 		 */
 		public function shoot():void
 		{
-			this.ammoFlying = true;
-			this.addChild(this._ammo);			
-			this.currentAmmo.fire();
-			this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_FIRED, this.currentAmmo));
-		};
+			if(!this.ammoFlying){
+				this.ammoFlying = true;
+				this._ammo = new Ammo(this._ammoType);
+				this._ammo.addEventListener(AmmoEvent.AMMO_DESTROYED, onAmmoDestroyed);
+				this._ammo.addEventListener(AmmoEvent.AMMO_MOVE, onAmmoMove);
+				this.addChild(this._ammo);			
+				this.currentAmmo.fire();
+				this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_FIRED, this.currentAmmo));
+			}
+		}
 		
 		/**
 		 * Destroy the tank
@@ -90,11 +91,17 @@
 		private function onAmmoDestroyed(e:AmmoEvent):void 
 		{
 			trace("KABOOOOM");
-			try {
-				this.removeChild(this._ammo);
-			}catch (err:Error) { trace(err); }
-			this._ammo = new Ammo(this._ammoType);
-			this._ammo.addEventListener(AmmoEvent.AMMO_DESTROYED, onAmmoDestroyed);
+	
+			for (var i:int = 0; i < this.numChildren; i++)
+			{
+				if (this.getChildAt(i) === this._ammo) {
+					trace("FOUND!"+e.ammo.strength);
+					this.removeChildAt(i);
+					break;
+				}
+				trace("CAN'T FIND IT");
+			}
+			
 			this.ammoFlying = false;
 		}
 		/**

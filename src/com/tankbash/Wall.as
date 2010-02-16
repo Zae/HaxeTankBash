@@ -49,18 +49,22 @@
 		}
 		private function onAmmoMove(e:AmmoEvent):void 
 		{
-			if (e.ammo.hitTestObject(this)) {
+			trace("swooosh");
+			if (this.hitTestObject(e.ammo)) {
 				trace("paf");
 				this._hp -= e.ammo.strength;
 				e.ammo.hit();
 				if (this._hp <= 0) {
+					trace("wall destroyed!");
 					this.destroyed();
+				}else {
+					trace(this._hp + " left");
 				}
 			}
 		}
 		private function destroyed():void 
 		{
-			this.dispatchEvent(new WallEvent(WallEvent.WALL_DESTROYED));
+			this.dispatchEvent(new WallEvent(WallEvent.WALL_DESTROYED, this));
 		}
 	}
 

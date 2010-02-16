@@ -26,6 +26,8 @@
 		private var _strength:int;
 		private var _ammoType:String;
 		
+		private var moveTween:TweenLite;
+		
 		public function Ammo(ammoType:String = "AmmoType_Bullets")
 		{
 			this._ammoType = ammoType;
@@ -52,13 +54,13 @@
 			switch(_ammoType)
 			{
 				case Ammo.TYPE_BULLETS:
-					TweenLite.to(this, Main.instance.settings.ammo.bullets.@speed, { x:Main.instance.stage.stageWidth, onUpdate: onAmmoMove, onComplete: onAmmoComplete } );
+					moveTween = TweenLite.to(this, Main.instance.settings.ammo.bullets.@speed, { x:Main.instance.stage.stageWidth, onUpdate: onAmmoMove, onComplete: onAmmoComplete } );
 					break;
 				case Ammo.TYPE_CANNON:
-					TweenLite.to(this, Main.instance.settings.ammo.cannon.@speed, { x:Main.instance.stage.stageWidth, onUpdate: onAmmoMove, onComplete: onAmmoComplete } );
+					moveTween = TweenLite.to(this, Main.instance.settings.ammo.cannon.@speed, { x:Main.instance.stage.stageWidth, onUpdate: onAmmoMove, onComplete: onAmmoComplete } );
 					break;
 				case Ammo.TYPE_ROCKET:
-					TweenLite.to(this, Main.instance.settings.ammo.rocket.@speed, { x:Main.instance.stage.stageWidth, onUpdate: onAmmoMove, onComplete: onAmmoComplete } );
+					moveTween = TweenLite.to(this, Main.instance.settings.ammo.rocket.@speed, { x:Main.instance.stage.stageWidth, onUpdate: onAmmoMove, onComplete: onAmmoComplete } );
 					break;
 			}
 			return false;
@@ -74,6 +76,8 @@
 		}
 		public function hit():void 
 		{
+			trace("Hit something");
+			moveTween.kill();
 			this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_DESTROYED, this));
 		}
 		public function get strength():int

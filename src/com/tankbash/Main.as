@@ -41,6 +41,10 @@
 		private function settingsLoaded(e:Event):void 
 		{
 			tank = new Tank();
+			tank.y = stage.stageHeight - 200;
+			tank.x = 115;
+			tank.scaleX = .3;
+			tank.scaleY = .3;
 			lvl = new LevelOne();
 			addChild(lvl);
 			addChild(tank);
@@ -59,13 +63,25 @@
 		}
 		private function onWallEvent(e:WallEvent):void 
 		{
-			trace("muurtje weghalen");
-			var index:int = walls.indexOf(e.wall);
-			try {
-				removeChild(walls[index]);
-			}catch (err:Error){}
-			walls[index] = null;
-			walls.splice(index, 1);
+			switch (e.type) 
+			{
+				case WallEvent.WALL_DESTROYED:
+					trace("muurtje weghalen");
+					var index:int = walls.indexOf(e.wall);
+					for (var i:int = 0; i < this.numChildren; i++)
+					{
+						if (this.getChildAt(i) === e.wall) {
+							trace("FOUND-WALL!");
+							this.removeChildAt(i);
+							break;
+						}
+						trace("CAN'T FIND IT-WALL");
+					}
+					
+					walls[index] = null;
+					walls.splice(index, 1);
+					break;
+			}
 		}
 		private function keyboardHandler(e:KeyboardEvent):void
 		{
