@@ -40,6 +40,10 @@
 		
 		private function settingsLoaded(e:Event):void 
 		{
+			timer = new Timer(10 * 1000);
+			timer.addEventListener(TimerEvent.TIMER, onTimerTik);
+			timer.start();
+			
 			tank = new Tank();
 			tank.y = stage.stageHeight - 200;
 			tank.x = 115;
@@ -50,9 +54,6 @@
 			addChild(tank);
 			walls = new Array();
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyboardHandler);
-			timer = new Timer(10 * 1000);
-			timer.addEventListener(TimerEvent.TIMER, onTimerTik);
-			timer.start();
 		}
 		private function onTimerTik(e:TimerEvent):void
 		{
