@@ -9,6 +9,7 @@
 	public class TankEvent extends Event 
 	{
 		public static const TANK_DESTROYED:String = "tankEventMove";
+		public static const TANK_HIT:String = "tankEventHit";
 		
 		private var tankReference:Tank;
 		

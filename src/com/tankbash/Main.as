@@ -19,7 +19,7 @@
 		public var tank:Tank;
 		private var lvl:LevelOne;
 		private var walls:Vector.<Wall>;
-		private var hud:HUD;
+		public var hud:HUD;
 		public var timer:Timer;
 		
 		private static var _instance:Main;
@@ -44,8 +44,6 @@
 			timer = new Timer(5 * 1000);
 			timer.addEventListener(TimerEvent.TIMER, onTimerTik);
 			timer.start();
-			
-			
 			
 			tank = new Tank();
 			tank.y = stage.stageHeight - stage.stageHeight/100*20;

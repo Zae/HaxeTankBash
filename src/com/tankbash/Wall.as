@@ -24,6 +24,7 @@
 		
 		private var _hp:int;
 		private var _wallType:String;
+		private var _strength:int;
 		
 		private var moveTween:TweenLite;
 		
@@ -35,14 +36,17 @@
 				case TYPE_WOOD:
 					addChild(new WoodVisual());
 					_hp = Main.instance.settings.wall.wood.@hp;
+					_strength = Main.instance.settings.wall.wood.@strength;
 					break;
 				case TYPE_METAL:
 					addChild(new MetalVisual());
 					_hp = Main.instance.settings.wall.metal.@hp;
+					_strength = Main.instance.settings.wall.metal.@strength;
 					break;
 				case TYPE_CONCRETE:
 					addChild(new ConcreteVisual());
 					_hp = Main.instance.settings.wall.concrete.@hp;
+					_strength = Main.instance.settings.wall.concrete.@strength;
 					break; 
 			}
 			Main.instance.tank.addEventListener(AmmoEvent.AMMO_FIRED, onAmmoFire);
@@ -63,7 +67,10 @@
 			this.dispatchEvent(new WallEvent(WallEvent.WALL_MOVE, this));
 			if (this.hitTestObject(Main.instance.tank)) {
 				this.destroyed();
-				Main.instance.tank.destroy();
+				Main.instance.tank.hit(this._strength);
+				if(Main.instance.tank.hp <= 0){
+					Main.instance.tank.destroy();
+				}
 			}
 		}
 		private function onAmmoFire(e:AmmoEvent):void 
@@ -93,6 +100,10 @@
 			Main.instance.tank.removeEventListener(AmmoEvent.AMMO_MOVE, onAmmoMove);
 			Main.instance.tank.removeEventListener(AmmoEvent.AMMO_FIRED, onAmmoFire);
 			this.dispatchEvent(new WallEvent(WallEvent.WALL_DESTROYED, this));
+		}
+		public function get strength():int 
+		{
+			return _strength;
 		}
 	}
 

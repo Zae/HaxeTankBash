@@ -8,11 +8,11 @@
 		<creator>Sander Smit</creator>
 	</meta>
 	<wall>
-		<wood hp="10" />
-		<metal hp="40" />
-		<concrete hp="90" />
+		<wood hp="10" strength="50" />
+		<metal hp="40" strength="200" />
+		<concrete hp="90" strength="350" />
 	</wall>
-	<tank></tank>
+	<tank hp="500" />
 	<ammo>
 		<bullets speed=".2" strength="10" />
 		<rocket speed=".6" strength="40" />

@@ -16,6 +16,10 @@
 		public static const TYPE_CANNON:String = "AmmoType_Cannon";
 		public static const TYPE_DEFAULT:String = TYPE_BULLETS;
 		
+		private static var bullets:int = 25;
+		private static var rockets:int = 5;
+		private static var cannons:int = 10;
+		
 		[Embed(source="../../../assets/rocket.png")]
 		private static var RocketVisual:Class;
 		[Embed(source="../../../assets/bullet.png")]
@@ -48,22 +52,29 @@
 		}
 		/**
 		 * 
-		 * @return Boolean Has the ammo been fired?
 		 */
-		public function fire():Boolean {
+		public function fire():void {
 			switch(_ammoType)
 			{
 				case Ammo.TYPE_BULLETS:
-					moveTween = TweenLite.to(this, Main.instance.settings.ammo.bullets.@speed, { x:Main.instance.stage.stageWidth, onUpdate: onAmmoMove, onComplete: onAmmoComplete } );
+					//if(bullets > 0){
+						moveTween = TweenLite.to(this, Main.instance.settings.ammo.bullets.@speed, { x:Main.instance.stage.stageWidth, onUpdate: onAmmoMove, onComplete: onAmmoComplete } );
+						bullets--;
+					//}
 					break;
 				case Ammo.TYPE_CANNON:
-					moveTween = TweenLite.to(this, Main.instance.settings.ammo.cannon.@speed, { x:Main.instance.stage.stageWidth, onUpdate: onAmmoMove, onComplete: onAmmoComplete } );
+					//if(cannons > 0){
+						moveTween = TweenLite.to(this, Main.instance.settings.ammo.cannon.@speed, { x:Main.instance.stage.stageWidth, onUpdate: onAmmoMove, onComplete: onAmmoComplete } );
+						cannons--;
+					//}
 					break;
 				case Ammo.TYPE_ROCKET:
-					moveTween = TweenLite.to(this, Main.instance.settings.ammo.rocket.@speed, { x:Main.instance.stage.stageWidth, onUpdate: onAmmoMove, onComplete: onAmmoComplete } );
+					//if (rockets > 0) {
+						moveTween = TweenLite.to(this, Main.instance.settings.ammo.rocket.@speed, { x:Main.instance.stage.stageWidth, onUpdate: onAmmoMove, onComplete: onAmmoComplete } );
+						rockets--;
+					//}
 					break;
 			}
-			return false;
 		}
 		private function onAmmoMove():void 
 		{
@@ -83,6 +94,18 @@
 		public function get strength():int
 		{
 			return _strength;
+		}
+		public static function get bullets_left():int 
+		{
+			return bullets;
+		}
+		public static function get rockets_left():int 
+		{
+			return rockets;
+		}
+		public static function get cannon_left():int 
+		{
+			return cannons;
 		}
 	}
 }

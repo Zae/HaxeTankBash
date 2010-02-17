@@ -20,10 +20,6 @@
 		private var ammoAmmount:TextField;
 		private var format:TextFormat;
 		
-		private var bullets:int = 25;
-		private var rockets:int = 5;
-		private var cannons:int = 10;
-		
 		private var scoreInt:int = 0;
 		
 		public function HUD() 
@@ -52,8 +48,7 @@
 			
 			score.text = 'Score: 0';
 			ammoType.text = 'Bullets';
-			ammoAmmount.text = bullets + 'x';
-			
+			ammoAmmount.text = Ammo.bullets_left + 'x';
 			
 			addChild(score);
 			addChild(ammoType);
@@ -74,17 +69,17 @@
 			{
 				case Ammo.TYPE_BULLETS:
 					ammoType.text = 'Bullets';
-					ammoAmmount.text = bullets + 'x';
+					ammoAmmount.text = Ammo.bullets_left + 'x';
 					break;
 					
 				case Ammo.TYPE_ROCKET:
 					ammoType.text = 'Rockets';
-					ammoAmmount.text = rockets + 'x';
+					ammoAmmount.text = Ammo.rockets_left + 'x';
 					break;
 					
 				case Ammo.TYPE_CANNON:
 					ammoType.text = 'Cannonballs';
-					ammoAmmount.text = cannons + 'x';
+					ammoAmmount.text = Ammo.cannon_left + 'x';
 					break;
 			}
 		}
@@ -101,30 +96,24 @@
 			switch (e.ammo_type)
 			{
 				case Ammo.TYPE_BULLETS:
-					if (bullets == 0) {
+					if (Ammo.bullets_left <= 0) {
 						this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_EMPTY, null, e.ammo_type));
-					} else {
-						bullets--;
-						ammoAmmount.text = bullets + 'x';
 					}
+					ammoAmmount.text = Ammo.bullets_left + 'x';
 					break;
 					
 				case Ammo.TYPE_ROCKET:
-					if (rockets == 0) {
+					if (Ammo.rockets_left <= 0) {
 						this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_EMPTY, null, e.ammo_type));
-					} else {
-						rockets--;
-						ammoAmmount.text = rockets + 'x';
 					}
+					ammoAmmount.text = Ammo.rockets_left + 'x';
 					break;
 					
 				case Ammo.TYPE_CANNON:
-					if (cannons == 0) {
+					if (Ammo.cannon_left <= 0) {
 						this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_EMPTY, null, e.ammo_type));
-					} else {
-						cannons--;
-						ammoAmmount.text = cannons + 'x';
 					}
+					ammoAmmount.text = Ammo.cannon_left + 'x';
 					break;
 			}
 		}
