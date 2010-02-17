@@ -19,6 +19,8 @@
 		public var tank:Tank;
 		private var lvl:LevelOne;
 		private var walls:Vector.<Wall>;
+		private var hud:HUD;
+		private var walls:Array;
 		public var timer:Timer;
 		
 		private static var _instance:Main;
@@ -44,6 +46,8 @@
 			timer.addEventListener(TimerEvent.TIMER, onTimerTik);
 			timer.start();
 			
+			
+			
 			tank = new Tank();
 			tank.y = stage.stageHeight - 280;
 			tank.x = 175;
@@ -55,6 +59,9 @@
 			addChild(lvl);
 			addChild(tank);
 			walls = new Vector.<Wall>;
+			
+			hud = new HUD();
+			addChild(hud);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyboardHandler);
 		}
 		private function onTankEvent(e:TankEvent):void 
