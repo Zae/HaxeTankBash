@@ -22,11 +22,9 @@
 		
 		public function AmmoEvent(type:String="AmmoEventFired", ammo:Ammo=null, ammoType:String = null, bubbles:Boolean=false, cancelable:Boolean=false) 
 		{ 
-			
 			Ammo_Reference = ammo;
 			Ammo_Type = ammoType;
 			super(type, bubbles, cancelable);
-			
 		} 
 		/**
 		 * clone the event
@@ -44,7 +42,6 @@
 		{ 
 			return formatToString("AmmoEvent", "type", "bubbles", "cancelable", "eventPhase"); 
 		}
-		
 		public function get ammo():Ammo 
 		{
 			return Ammo_Reference;

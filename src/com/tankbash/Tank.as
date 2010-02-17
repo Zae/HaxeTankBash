@@ -1,7 +1,5 @@
 ﻿package com.tankbash
 {
-	import containing_fla.tank_niveau0_8;
-	import containing_fla.tank_niveau1_7;
 	import containing_fla.tank_niveau3_2;
 	import flash.display.MovieClip;
 	import flash.net.URLRequest;
@@ -16,17 +14,18 @@
 	 */
 	public class Tank extends MovieClip
 	{
-		private var tank:*;
+		private var tank:tank_niveau3_2;
 		
 		private var _health:int;
-		private var _ammo:Ammo;
+		private var _ammo:Vector.<Ammo>;
 		private var _ammoType:String;
 		private var ammoFlying:Boolean = false;
 		
 		public function Tank() 
 		{
 			init();
-		}		
+			this._ammo = new Vector.<Ammo>;
+		}
 		private function init():void
 		{
 			this._ammoType = Ammo.TYPE_DEFAULT;
@@ -42,14 +41,16 @@
 		 */
 		public function shoot():void
 		{
-			if(!this.ammoFlying){
+			if (!this.ammoFlying)
+			{
 				this.ammoFlying = true;
-				this._ammo = new Ammo(this._ammoType);
-				this._ammo.addEventListener(AmmoEvent.AMMO_DESTROYED, onAmmoDestroyed);
-				this._ammo.addEventListener(AmmoEvent.AMMO_MOVE, onAmmoMove);
-				this.addChild(this._ammo);			
-				this.currentAmmo.fire();
-				this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_FIRED,this.currentAmmo,  this._ammoType));
+				var newAmmo:Ammo = new Ammo(this._ammoType);
+				newAmmo.addEventListener(AmmoEvent.AMMO_DESTROYED, onAmmoDestroyed);
+				newAmmo.addEventListener(AmmoEvent.AMMO_MOVE, onAmmoMove);
+				this.addChild(newAmmo);
+				this._ammo.push(newAmmo);
+				newAmmo.fire();
+				this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_FIRED, newAmmo, this._ammoType));
 			}
 		}
 		
@@ -68,7 +69,7 @@
 		public function get health():int
 		{
 			return _health;
-		};
+		}
 		
 		/**
 		 * Set the new health
@@ -77,7 +78,7 @@
 		public function set health(setHealth:int):void
 		{
 			_health = setHealth;
-		};
+		}
 		
 		/**
 		 * Set the new ammo type
@@ -86,23 +87,31 @@
 		public function set setAmmoType(setAmmo:String):void
 		{
 			_ammoType = setAmmo;
-			this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_CHANGE, this._ammo, this._ammoType));
+			this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_CHANGE, null, this._ammoType));
 		}
 		private function onAmmoDestroyed(e:AmmoEvent):void 
 		{
 			trace("KABOOOOM");
-	
 			for (var i:int = 0; i < this.numChildren; i++)
 			{
-				if (this.getChildAt(i) === this._ammo) {
+				if (this.getChildAt(i) === e.ammo) {
 					trace("FOUND!"+e.ammo.strength);
 					this.removeChildAt(i);
-					this._ammo.removeEventListener(AmmoEvent.AMMO_DESTROYED, onAmmoDestroyed);
-					this._ammo.removeEventListener(AmmoEvent.AMMO_MOVE, onAmmoMove);
-					this._ammo = null;
 					break;
 				}
 				trace("CAN'T FIND IT");
+			}
+			for (var j:int = 0; j < this._ammo.length; j++)
+			{
+				if (this._ammo[j] === e.ammo)
+				{
+					e.ammo.removeEventListener(AmmoEvent.AMMO_DESTROYED, onAmmoDestroyed);
+					e.ammo.removeEventListener(AmmoEvent.AMMO_MOVE, onAmmoMove);
+					var refkill:Ammo = e.ammo;
+					refkill = null;
+					refkill;
+					this._ammo.splice(j, 1);
+				}
 			}
 			
 			this.ammoFlying = false;
@@ -111,10 +120,10 @@
 		 * Get the current ammo type
 		 * @return Ammo the current ammo type
 		 */
-		public function get currentAmmo():Ammo
+		/*public function get currentAmmo():Ammo
 		{
 			return _ammo;
-		}
+		}*/
 	}
 
 }

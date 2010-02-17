@@ -15,11 +15,8 @@
 		
 		public function WallEvent(type:String="WallEventDestroyed", wall:Wall=null, bubbles:Boolean=false, cancelable:Boolean=false) 
 		{ 
-			if (wall)
-			{
-				Wall_Reference = wall;
-				super(type, bubbles, cancelable);	
-			}
+			Wall_Reference = wall;
+			super(type, bubbles, cancelable);
 		} 
 		
 		public override function clone():Event 

@@ -14,10 +14,8 @@
 		
 		public function TankEvent(type:String = "tankEventMove", tank:Tank=null, bubbles:Boolean=false, cancelable:Boolean=false) 
 		{ 
-			if (!tank) {
-				tankReference = tank;
-				super(type, bubbles, cancelable);
-			}
+			tankReference = tank;
+			super(type, bubbles, cancelable);
 		} 
 		
 		public override function clone():Event 

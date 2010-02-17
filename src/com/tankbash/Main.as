@@ -48,7 +48,7 @@
 			
 			
 			tank = new Tank();
-			tank.y = stage.stageHeight - 280;
+			tank.y = stage.stageHeight - stage.stageHeight/100*20;
 			tank.x = 175;
 			tank.scaleX = .4;
 			tank.scaleY = .4;
@@ -63,7 +63,7 @@
 			addChild(hud);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyboardHandler);
 		}
-		private function onTankEvent(e:TankEvent):void 
+		private function onTankEvent(e:TankEvent):void
 		{
 			switch (e.type) 
 			{
@@ -75,8 +75,8 @@
 						{
 							this.removeChildAt(i);
 							tank.removeEventListener(TankEvent.TANK_DESTROYED, onTankEvent);
-							tank = null;
 							trace("Destroyed the tank");
+							timer.stop();
 							break;
 						}
 						trace("Didn't find a tank!");
@@ -94,10 +94,13 @@
 			walls.push(tmp);
 			if (timer.delay > 5000)
 			{
-				timer.delay -= 300;
+				timer.delay -= 700;
 			}else if (timer.delay > 2000)
 			{
-				timer.delay -= 100;
+				timer.delay -= 500;
+			}else if (timer.delay > 900)
+			{
+				timer.delay -= 300;
 			}
 		}
 		private function onWallEvent(e:WallEvent):void 
@@ -107,23 +110,25 @@
 				case WallEvent.WALL_DESTROYED:
 					trace("muurtje weghalen");
 					this.dispatchEvent(e);
-					for (var j:int; j < walls.length; j++) {
-						if(walls[j] === e.wall){
+					for (var j:int = 0; j < walls.length; j++)
+					{
+						if (walls[j] === e.wall)
+						{
 							trace("wallIndex"+j);
 							for (var i:int = 0; i < this.numChildren; i++)
 							{
-								if (this.getChildAt(i) === e.wall) {
+								if (this.getChildAt(i) === e.wall)
+								{
 									trace("FOUND-WALL!");
 									this.removeChildAt(i);
 									break;
 								}
 								trace("CAN'T FIND IT-WALL");
 							}
+							walls[j].removeEventListener(WallEvent.WALL_DESTROYED, onWallEvent);						
+							walls[j] = null;
+							walls.splice(j, 1);
 						}
-						
-						walls[j].removeEventListener(WallEvent.WALL_DESTROYED, onWallEvent);						
-						walls[j] = null;
-						walls.splice(j, 1);
 					}
 					break;
 			}
