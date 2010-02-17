@@ -4,6 +4,7 @@
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.text.Font;
+	import flash.events.EventDispatcher;
 	
 	/**
 	 * ...
@@ -52,13 +53,14 @@
 			score.text = 'Score: 0';
 			ammoType.text = 'Bullets';
 			ammoAmmount.text = bullets + 'x';
-			ammoAmmount.x = ammoType.x - ammoAmmount.width;
+			
 			
 			addChild(score);
 			addChild(ammoType);
 			addChild(ammoAmmount);
 			
 			ammoType.x = Main.instance.stage.stageWidth - ammoType.width;
+			ammoAmmount.x = ammoType.x - ammoAmmount.width;
 			
 			Main.instance.tank.addEventListener(AmmoEvent.AMMO_CHANGE, onAmmoChange);
 			Main.instance.tank.addEventListener(AmmoEvent.AMMO_FIRED, ammoFired);
@@ -94,22 +96,35 @@
 		}
 		
 		private function ammoFired(e:AmmoEvent):void
-		{
+		{			
+			trace(ammoAmmount.text + ' bullets left');
 			switch (e.ammo_type)
 			{
 				case Ammo.TYPE_BULLETS:
-					bullets--;
-					ammoAmmount.text = bullets + 'x';
+					if (bullets == 0) {
+						this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_EMPTY, null, e.ammo_type));
+					} else {
+						bullets--;
+						ammoAmmount.text = bullets + 'x';
+					}
 					break;
 					
 				case Ammo.TYPE_ROCKET:
-					rockets--;
-					ammoAmmount.text = rockets + 'x';
+					if (rockets == 0) {
+						this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_EMPTY, null, e.ammo_type));
+					} else {
+						rockets--;
+						ammoAmmount.text = rockets + 'x';
+					}
 					break;
 					
 				case Ammo.TYPE_CANNON:
-					cannons--;
-					ammoAmmount.text = cannons + 'x';
+					if (cannons == 0) {
+						this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_EMPTY, null, e.ammo_type));
+					} else {
+						cannons--;
+						ammoAmmount.text = cannons + 'x';
+					}
 					break;
 			}
 		}

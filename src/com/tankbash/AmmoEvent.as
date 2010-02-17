@@ -18,6 +18,7 @@
 		public static const AMMO_DESTROYED:String = "AmmoEventDestroyed";
 		public static const AMMO_RELOAD:String = "AmmoEventReload";
 		public static const AMMO_CHANGE:String = "AmmoEventChange";
+		public static const AMMO_EMPTY:String = "AmmoEventEmpty";
 		
 		public function AmmoEvent(type:String="AmmoEventFired", ammo:Ammo=null, ammoType:String = null, bubbles:Boolean=false, cancelable:Boolean=false) 
 		{ 
