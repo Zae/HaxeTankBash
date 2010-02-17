@@ -49,7 +49,7 @@
 				this._ammo.addEventListener(AmmoEvent.AMMO_MOVE, onAmmoMove);
 				this.addChild(this._ammo);			
 				this.currentAmmo.fire();
-				this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_FIRED, this.currentAmmo));
+				this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_FIRED,this.currentAmmo,  this._ammoType));
 			}
 		}
 		
