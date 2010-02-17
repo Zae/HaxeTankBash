@@ -2,6 +2,7 @@
 {
 	import containing_fla.tank_niveau0_8;
 	import containing_fla.tank_niveau1_7;
+	import containing_fla.tank_niveau3_2;
 	import flash.display.MovieClip;
 	import flash.net.URLRequest;
 	import flash.display.Loader;
@@ -29,7 +30,7 @@
 		private function init():void
 		{
 			this._ammoType = Ammo.TYPE_DEFAULT;
-			tank = new tank_niveau0_8();
+			tank = new tank_niveau3_2();
 			addChild(tank);
 		}
 		private function onAmmoMove(e:AmmoEvent):void 

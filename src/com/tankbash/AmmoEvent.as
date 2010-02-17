@@ -34,7 +34,7 @@
 		 */
 		public override function clone():Event 
 		{ 
-			return new AmmoEvent(type, ammo, ammoType, bubbles, cancelable);
+			return new AmmoEvent(type, ammo, ammo_type, bubbles, cancelable);
 		}
 		/**
 		 * express the object as a string
@@ -49,7 +49,7 @@
 		{
 			return Ammo_Reference;
 		}
-		public function ammo_type():String {
+		public function get ammo_type():String {
 			return Ammo_Type;
 		}
 	}

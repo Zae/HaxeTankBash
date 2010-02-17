@@ -18,7 +18,7 @@
 		public var settings:Settings;
 		public var tank:Tank;
 		private var lvl:LevelOne;
-		private var walls:Array;
+		private var walls:Vector.<Wall>;
 		public var timer:Timer;
 		
 		private static var _instance:Main;
@@ -54,7 +54,7 @@
 			lvl = new LevelOne();
 			addChild(lvl);
 			addChild(tank);
-			walls = new Array();
+			walls = new Vector.<Wall>;
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyboardHandler);
 		}
 		private function onTankEvent(e:TankEvent):void 
@@ -62,11 +62,13 @@
 			switch (e.type) 
 			{
 				case TankEvent.TANK_DESTROYED:
+					trace("CRAAAASH");
 					for (var i:int = 0; i < this.numChildren; i++)
 					{
 						if (this.getChildAt(i) === e.tank)
 						{
 							this.removeChildAt(i);
+							tank.removeEventListener(TankEvent.TANK_DESTROYED, onTankEvent);
 							tank = null;
 							trace("Destroyed the tank");
 							break;
@@ -78,13 +80,19 @@
 		}
 		private function onTimerTik(e:TimerEvent):void
 		{
-			var tmp:Wall = new Wall(Wall.TYPE_WOOD);
+			var walltypes:Array = new Array(Wall.TYPE_WOOD, Wall.TYPE_METAL, Wall.TYPE_CONCRETE);
+			var randwall:int = Math.round(Math.random() * 2);
+			var tmp:Wall = new Wall(walltypes[randwall]);
 			addChild(tmp);
 			tmp.addEventListener(WallEvent.WALL_DESTROYED, onWallEvent);
 			walls.push(tmp);
-			if (timer.delay > 500) {
-				timer.delay -= 500;
-			}			
+			if (timer.delay > 5000)
+			{
+				timer.delay -= 300;
+			}else if (timer.delay > 2000)
+			{
+				timer.delay -= 100;
+			}
 		}
 		private function onWallEvent(e:WallEvent):void 
 		{
