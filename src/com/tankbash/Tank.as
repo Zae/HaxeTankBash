@@ -57,7 +57,7 @@
 		 */
 		public function destroy():void
 		{
-			this.dispatchEvent(new TankEvent(TankEvent.TANK_DESTROYED));
+			this.dispatchEvent(new TankEvent(TankEvent.TANK_DESTROYED, this));
 		}
 		
 		/**
@@ -85,6 +85,7 @@
 		public function set setAmmoType(setAmmo:String):void
 		{
 			_ammoType = setAmmo;
+			this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_CHANGE, this._ammo, this._ammoType));
 		}
 		private function onAmmoDestroyed(e:AmmoEvent):void 
 		{

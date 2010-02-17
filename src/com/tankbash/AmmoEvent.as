@@ -11,17 +11,20 @@
 	public class AmmoEvent extends Event 
 	{
 		private var Ammo_Reference:Ammo;
+		private var Ammo_Type:String;
 		
 		public static const AMMO_FIRED:String = "AmmoEventFired";
 		public static const AMMO_MOVE:String = "AmmoEventMove";
 		public static const AMMO_DESTROYED:String = "AmmoEventDestroyed";
 		public static const AMMO_RELOAD:String = "AmmoEventReload";
+		public static const AMMO_CHANGE:String = "AmmoEventChange";
 		
-		public function AmmoEvent(type:String="AmmoEventFired", ammo:Ammo=null, bubbles:Boolean=false, cancelable:Boolean=false) 
+		public function AmmoEvent(type:String="AmmoEventFired", ammo:Ammo=null, ammoType:String = null, bubbles:Boolean=false, cancelable:Boolean=false) 
 		{ 
 			if (ammo)
 			{
 				Ammo_Reference = ammo;
+				Ammo_Type = ammoType;
 				super(type, bubbles, cancelable);
 			}
 		} 
@@ -31,7 +34,7 @@
 		 */
 		public override function clone():Event 
 		{ 
-			return new AmmoEvent(type, ammo, bubbles, cancelable);
+			return new AmmoEvent(type, ammo, ammoType, bubbles, cancelable);
 		}
 		/**
 		 * express the object as a string
@@ -46,6 +49,8 @@
 		{
 			return Ammo_Reference;
 		}
+		public function ammo_type():String {
+			return Ammo_Type;
+		}
 	}
-	
 }

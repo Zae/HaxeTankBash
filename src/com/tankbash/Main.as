@@ -40,7 +40,7 @@
 		
 		private function settingsLoaded(e:Event):void 
 		{
-			timer = new Timer(10 * 1000);
+			timer = new Timer(5 * 1000);
 			timer.addEventListener(TimerEvent.TIMER, onTimerTik);
 			timer.start();
 			
@@ -68,8 +68,10 @@
 						{
 							this.removeChildAt(i);
 							tank = null;
+							trace("Destroyed the tank");
 							break;
 						}
+						trace("Didn't find a tank!");
 					}
 					break;
 			}
@@ -80,7 +82,9 @@
 			addChild(tmp);
 			tmp.addEventListener(WallEvent.WALL_DESTROYED, onWallEvent);
 			walls.push(tmp);
-			timer.delay -= 500;
+			if (timer.delay > 500) {
+				timer.delay -= 500;
+			}			
 		}
 		private function onWallEvent(e:WallEvent):void 
 		{
@@ -88,6 +92,7 @@
 			{
 				case WallEvent.WALL_DESTROYED:
 					trace("muurtje weghalen");
+					this.dispatchEvent(e);
 					for (var j:int; j < walls.length; j++) {
 						if(walls[j] === e.wall){
 							trace("wallIndex"+j);
