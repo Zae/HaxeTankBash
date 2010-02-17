@@ -21,12 +21,11 @@
 		
 		public function AmmoEvent(type:String="AmmoEventFired", ammo:Ammo=null, ammoType:String = null, bubbles:Boolean=false, cancelable:Boolean=false) 
 		{ 
-			if (ammo)
-			{
-				Ammo_Reference = ammo;
-				Ammo_Type = ammoType;
-				super(type, bubbles, cancelable);
-			}
+			
+			Ammo_Reference = ammo;
+			Ammo_Type = ammoType;
+			super(type, bubbles, cancelable);
+			
 		} 
 		/**
 		 * clone the event
