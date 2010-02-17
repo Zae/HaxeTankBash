@@ -20,7 +20,6 @@
 		private var lvl:LevelOne;
 		private var walls:Vector.<Wall>;
 		private var hud:HUD;
-		private var walls:Array;
 		public var timer:Timer;
 		
 		private static var _instance:Main;
