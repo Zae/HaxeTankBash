@@ -5,6 +5,8 @@
 	import com.greensock.TweenLite;
 	import com.greensock.easing.*;
 	import flash.events.TimerEvent;
+	import flash.media.Sound;
+	import flash.events.Event;
 	/**
 	 * ...
 	 * @author Sytze
@@ -20,10 +22,14 @@
 		[Embed(source = "../../../assets/bgBuildings.png")]
 		private var _building:Class;
 		
+		[Embed(source = "../../../assets/WarContinues_1.mp3")]
+		private var _sound:Class;
+		
 		private var road:Bitmap;
 		private var roadStart:Bitmap;
 		private var building:Bitmap;
 		private var buildingStart:Bitmap;
+		private var sound:Sound;
 
 		public function LevelOne() 
 		{
@@ -31,7 +37,10 @@
 		}
 		
 		private function init():void 
-		{			
+		{	
+			sound = new _sound();
+			sound.play().addEventListener(Event.SOUND_COMPLETE, onSoundComplete);
+			
 			road = new _road();
 			roadStart = new _road();
 			building = new _building();
@@ -74,6 +83,11 @@
 			TweenLite.to(building, (Main.instance.timer.delay / 1000), { x:0 , ease:Linear.easeNone } );
 			TweenLite.to(buildingStart, (Main.instance.timer.delay / 1000), { x: -buildingStart.width, ease:Linear.easeNone } );
 			
+		}
+		
+		private function onSoundComplete(e:Event):void
+		{
+			sound.play();
 		}
 		
 		

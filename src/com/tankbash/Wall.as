@@ -15,7 +15,7 @@
 		public static const TYPE_METAL:String = "WallType_Metal";
 		public static const TYPE_CONCRETE:String = "WallType_Concrete";
 		
-		[Embed(source="../../../assets/wood_object.png")]
+		[Embed(source="../../../assets/building_1.png")]//"../../../assets/wood_object.png")]
 		private static var WoodVisual:Class;
 		[Embed(source="../../../assets/metaal_object.png")]
 		private static var MetalVisual:Class;
@@ -49,7 +49,7 @@
 			
 			this.scaleX = .5;
 			this.scaleY = .5;
-			this.x = Main.instance.stage.stageWidth;
+			this.x = 1200;
 			this.y = Main.instance.stage.stageHeight-300;
 			moveTween = TweenLite.to(this, Main.instance.timer.delay / 1000, { x: 0, ease: Linear.easeNone, onUpdate: onWallMove, onComplete: onMoveComplete } );
 			trace(Main.instance.timer.delay / 1000);
