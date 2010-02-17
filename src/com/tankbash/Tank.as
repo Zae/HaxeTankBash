@@ -47,7 +47,8 @@
 				var newAmmo:Ammo = new Ammo(this._ammoType);
 				newAmmo.addEventListener(AmmoEvent.AMMO_DESTROYED, onAmmoDestroyed);
 				newAmmo.addEventListener(AmmoEvent.AMMO_MOVE, onAmmoMove);
-				this.addChild(newAmmo);
+				Main.instance.addChild(newAmmo);
+				newAmmo.y = this.y;
 				this._ammo.push(newAmmo);
 				newAmmo.fire();
 				this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_FIRED, newAmmo, this._ammoType));
@@ -92,11 +93,11 @@
 		private function onAmmoDestroyed(e:AmmoEvent):void 
 		{
 			trace("KABOOOOM");
-			for (var i:int = 0; i < this.numChildren; i++)
+			for (var i:int = 0; i < Main.instance.numChildren; i++)
 			{
-				if (this.getChildAt(i) === e.ammo) {
+				if (Main.instance.getChildAt(i) === e.ammo) {
 					trace("FOUND!"+e.ammo.strength);
-					this.removeChildAt(i);
+					Main.instance.removeChildAt(i);
 					break;
 				}
 				trace("CAN'T FIND IT");
