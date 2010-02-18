@@ -1,11 +1,13 @@
 ﻿package com.tankbash 
 {
+	import flash.display.Bitmap;
 	import flash.display.MovieClip;
 	import flash.events.TextEvent;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.text.Font;
 	import flash.events.EventDispatcher;
+	import com.greensock.TweenLite;
 	
 	/**
 	 * ...
@@ -16,10 +18,15 @@
 		[Embed(source = "../../../assets/ARDARLING.ttf", fontName = "ARDARLING", fontFamily = "ARDARLING", mimeType = "application/x-font-truetype")]
 		private var font:Class;
 		
+		[Embed(source = "../../../assets/instructions.png")]
+		private var instructionsvisual:Class;
+		
 		private var score:TextField;
 		private var ammoType:TextField;
 		private var ammoAmmount:TextField;
 		private var format:TextFormat;
+		
+		private var instructions:Bitmap;
 		
 		private var health:TextField;
 		
@@ -62,14 +69,21 @@
 			addChild(ammoAmmount);
 			addChild(health);
 			
+			instructions = new instructionsvisual() as Bitmap;
+			instructions.scaleX = .3;
+			instructions.scaleY = .3;
+			instructions.x = 100;
+			instructions.y = 50;
+			addChild(instructions);
+			
 			ammoType.x = Main.instance.stage.stageWidth - ammoType.width;
 			ammoAmmount.x = ammoType.x - ammoAmmount.width;
 			health.x = score.x + score.width;
 			
-			Main.instance.tank.addEventListener(AmmoEvent.AMMO_CHANGE, onAmmoChange);
-			Main.instance.tank.addEventListener(AmmoEvent.AMMO_FIRED, ammoFired);
-			Main.instance.tank.addEventListener(TankEvent.TANK_HIT, onTankHit);
-			Main.instance.addEventListener(WallEvent.WALL_DESTROYED, onWallDestroyed);
+			Main.instance.tank.addEventListener(AmmoEvent.AMMO_CHANGE, onAmmoChange, false, 0, true);
+			Main.instance.tank.addEventListener(AmmoEvent.AMMO_FIRED, ammoFired, false, 0, true);
+			Main.instance.tank.addEventListener(TankEvent.TANK_HIT, onTankHit, false, 0, true);
+			Main.instance.addEventListener(WallEvent.WALL_DESTROYED, onWallDestroyed, false, 0, true);
 		}
 		private function onTankHit(e:TankEvent):void 
 		{
@@ -106,8 +120,15 @@
 		{
 			scoreInt++;
 			score.text = 'Score: ' + scoreInt;
+			if (instructions)
+			{
+				TweenLite.to(instructions, 2, { alpha:0, onComplete: onAlphaComplete } );
+			}
 		}
-		
+		private function onAlphaComplete():void 
+		{
+			instructions = null;
+		}
 		private function ammoFired(e:AmmoEvent):void
 		{			
 			trace(ammoAmmount.text + ' bullets left');
@@ -135,7 +156,6 @@
 					break;
 			}
 		}
-		
 	}
 
 }

@@ -49,7 +49,7 @@
 					_strength = Main.instance.settings.wall.concrete.@strength;
 					break; 
 			}
-			Main.instance.tank.addEventListener(AmmoEvent.AMMO_FIRED, onAmmoFire);
+			Main.instance.tank.addEventListener(AmmoEvent.AMMO_FIRED, onAmmoFire, false, 0, true);
 			
 			this.scaleX = .5;
 			this.scaleY = .5;
@@ -76,7 +76,7 @@
 		private function onAmmoFire(e:AmmoEvent):void 
 		{
 			trace("fired");
-			Main.instance.tank.addEventListener(AmmoEvent.AMMO_MOVE, onAmmoMove);
+			Main.instance.tank.addEventListener(AmmoEvent.AMMO_MOVE, onAmmoMove, false, 0, true);
 		}
 		private function onAmmoMove(e:AmmoEvent):void 
 		{

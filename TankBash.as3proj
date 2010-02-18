@@ -43,7 +43,7 @@
   </includeLibraries>
   <!-- SWC Libraries -->
   <libraryPaths>
-    <element path="assets\tanks_animation.swc" />
+    <element path="assets\tank_niveau3.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

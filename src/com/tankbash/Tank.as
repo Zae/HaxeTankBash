@@ -1,11 +1,12 @@
 ﻿package com.tankbash
 {
-	import containing_fla.tank_niveau3_2;
+	import tank_niveau3;
 	import flash.display.MovieClip;
 	import flash.net.URLRequest;
 	import flash.display.Loader;
 	import flash.display.Bitmap;
 	import flash.events.EventDispatcher;
+	import com.greensock.TweenLite;
 	/**
 	 * ...
 	 * 
@@ -14,7 +15,7 @@
 	 */
 	public class Tank extends MovieClip
 	{
-		private var tank:tank_niveau3_2;
+		private var tank:tank_niveau3;
 		
 		private var _health:int;
 		private var _ammo:Vector.<Ammo>;
@@ -34,7 +35,7 @@
 			this._hp = Main.instance.settings.tank.@hp;
 			this._ammo = new Vector.<Ammo>;
 			this._ammoType = Ammo.TYPE_DEFAULT;
-			tank = new tank_niveau3_2();
+			tank = new tank_niveau3();
 			addChild(tank);
 			
 		}
@@ -75,8 +76,8 @@
 					if(shootAllowed){
 						this.ammoFlying = true;
 						var newAmmo:Ammo = new Ammo(this._ammoType);
-						newAmmo.addEventListener(AmmoEvent.AMMO_DESTROYED, onAmmoDestroyed);
-						newAmmo.addEventListener(AmmoEvent.AMMO_MOVE, onAmmoMove);
+						newAmmo.addEventListener(AmmoEvent.AMMO_DESTROYED, onAmmoDestroyed, false, 0, true);
+						newAmmo.addEventListener(AmmoEvent.AMMO_MOVE, onAmmoMove, false, 0, true);
 						Main.instance.addChild(newAmmo);
 						newAmmo.y = this.y;
 						this._ammo.push(newAmmo);
@@ -148,7 +149,6 @@
 					e.ammo.removeEventListener(AmmoEvent.AMMO_MOVE, onAmmoMove);
 					var refkill:Ammo = e.ammo;
 					refkill = null;
-					refkill;
 					this._ammo.splice(j, 1);
 				}
 			}
