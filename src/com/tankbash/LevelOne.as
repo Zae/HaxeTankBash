@@ -59,7 +59,7 @@
 			
 			gameoverSound = new _gameoverSound();
 			
-			Main.instance.tank.addEventListener(TankEvent.TANK_DESTROYED, onTankDestroyed);
+			Main.instance.tank.addEventListener(TankEvent.TANK_DESTROYED, onTankDestroyed, false, 0, true);
 			
 			road = new _road();
 			roadStart = new _road();
@@ -121,9 +121,7 @@
 			soundChannel.soundTransform = soundTransformm;
 			gameoverImg.visible = true;
 			gameoverSound.play();
-		}
-		
-		
+		}		
 	}
 
 }
