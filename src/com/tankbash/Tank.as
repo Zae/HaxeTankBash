@@ -21,6 +21,8 @@
 		private var _ammoType:String;
 		private var ammoFlying:Boolean = false;
 		
+		private var killed:Boolean = false;
+		
 		private var _hp:int;
 		
 		public function Tank() 
@@ -45,40 +47,42 @@
 		 */
 		public function shoot():void
 		{
-			if (!this.ammoFlying)
-			{
-				var shootAllowed:Boolean = false;
-				switch (this._ammoType) 
+			if(!killed){
+				if (!this.ammoFlying)
 				{
-					case Ammo.TYPE_BULLETS:
-						if (Ammo.bullets_left > 0)
-						{
-							shootAllowed = true;
-						}
-						break;
-					case Ammo.TYPE_CANNON:
-						if (Ammo.cannon_left > 0)
-						{
-							shootAllowed = true;
-						}
-						break;
-					case Ammo.TYPE_ROCKET:
-						if (Ammo.rockets_left > 0)
-						{
-							shootAllowed = true;
-						}
-						break;
-				}
-				if(shootAllowed){
-					this.ammoFlying = true;
-					var newAmmo:Ammo = new Ammo(this._ammoType);
-					newAmmo.addEventListener(AmmoEvent.AMMO_DESTROYED, onAmmoDestroyed);
-					newAmmo.addEventListener(AmmoEvent.AMMO_MOVE, onAmmoMove);
-					Main.instance.addChild(newAmmo);
-					newAmmo.y = this.y;
-					this._ammo.push(newAmmo);
-					newAmmo.fire();
-					this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_FIRED, newAmmo, this._ammoType));
+					var shootAllowed:Boolean = false;
+					switch (this._ammoType) 
+					{
+						case Ammo.TYPE_BULLETS:
+							if (Ammo.bullets_left > 0)
+							{
+								shootAllowed = true;
+							}
+							break;
+						case Ammo.TYPE_CANNON:
+							if (Ammo.cannon_left > 0)
+							{
+								shootAllowed = true;
+							}
+							break;
+						case Ammo.TYPE_ROCKET:
+							if (Ammo.rockets_left > 0)
+							{
+								shootAllowed = true;
+							}
+							break;
+					}
+					if(shootAllowed){
+						this.ammoFlying = true;
+						var newAmmo:Ammo = new Ammo(this._ammoType);
+						newAmmo.addEventListener(AmmoEvent.AMMO_DESTROYED, onAmmoDestroyed);
+						newAmmo.addEventListener(AmmoEvent.AMMO_MOVE, onAmmoMove);
+						Main.instance.addChild(newAmmo);
+						newAmmo.y = this.y;
+						this._ammo.push(newAmmo);
+						newAmmo.fire();
+						this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_FIRED, newAmmo, this._ammoType));
+					}
 				}
 			}
 		}
@@ -89,6 +93,7 @@
 		public function destroy():void
 		{
 			this.dispatchEvent(new TankEvent(TankEvent.TANK_DESTROYED, this));
+			killed = true;
 		}
 		public function hit(strength:int):void 
 		{
