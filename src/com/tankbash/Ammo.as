@@ -16,9 +16,9 @@
 		public static const TYPE_CANNON:String = "AmmoType_Cannon";
 		public static const TYPE_DEFAULT:String = TYPE_BULLETS;
 		
-		private static var bullets:int = 25;
-		private static var rockets:int = 5;
-		private static var cannons:int = 10;
+		private static var bullets:int = Main.instance.settings.ammo.bullets.@startAmount;
+		private static var rockets:int = Main.instance.settings.ammo.rocket.@startAmount;
+		private static var cannons:int = Main.instance.settings.ammo.cannon.@startAmount;
 		
 		[Embed(source="../../../assets/rocket.png")]
 		private static var RocketVisual:Class;

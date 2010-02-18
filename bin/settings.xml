@@ -14,8 +14,8 @@
 	</wall>
 	<tank hp="500" />
 	<ammo>
-		<bullets speed=".2" strength="10" />
-		<rocket speed=".6" strength="40" />
-		<cannon speed=".9" strength="70" />
+		<bullets speed=".2" strength="10" startAmount="25" />
+		<rocket speed=".6" strength="40" startAmount="10" />
+		<cannon speed=".9" strength="70" startAmount="5" />
 	</ammo>
 </tankBash>
