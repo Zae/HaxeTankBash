@@ -1,5 +1,6 @@
 ﻿package com.tankbash
 {
+	import flash.display.Bitmap;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -15,12 +16,16 @@
 	 */
 	public class Main extends MovieClip
 	{
+		[Embed(source = "../../../assets/instructions.png")]
+		private var instructions:Class;
+		
 		public var settings:Settings;
 		public var tank:Tank;
 		private var lvl:LevelOne;
 		private var walls:Vector.<Wall>;
 		public var hud:HUD;
 		public var timer:Timer;
+		private var loadingScreen:Bitmap;
 		
 		private static var _instance:Main;
 		public static function get instance():Main { return _instance; }
@@ -41,25 +46,9 @@
 		
 		private function settingsLoaded(e:Event):void 
 		{
-			timer = new Timer(5 * 1000);
-			timer.addEventListener(TimerEvent.TIMER, onTimerTik);
-			timer.start();
-			
-			tank = new Tank();
-			tank.y = stage.stageHeight - stage.stageHeight/100*20;
-			tank.x = 175;
-			tank.scaleX = .4;
-			tank.scaleY = .4;
-			tank.addEventListener(TankEvent.TANK_DESTROYED, onTankEvent);
-			
-			lvl = new LevelOne();
-			addChild(lvl);
-			addChild(tank);
-			walls = new Vector.<Wall>;
-			
-			hud = new HUD();
-			addChild(hud);
-			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyboardHandler);
+			loadingScreen = new instructions();
+			addChild(loadingScreen);
+			stage.addEventListener(KeyboardEvent.KEY_DOWN, spaceDown);
 		}
 		private function onTankEvent(e:TankEvent):void
 		{
@@ -152,7 +141,37 @@
 				case 51:
 					tank.setAmmoType = Ammo.TYPE_CANNON;
 					break;
-				
+			}
+		}
+		private function spaceDown(e:KeyboardEvent):void 
+		{
+			switch (e.keyCode) 
+			{
+				case Keyboard.SPACE:
+					removeChild(loadingScreen);
+					loadingScreen = null;
+					
+					timer = new Timer(5 * 1000);
+					timer.addEventListener(TimerEvent.TIMER, onTimerTik);
+					timer.start();
+					
+					tank = new Tank();
+					tank.y = stage.stageHeight - stage.stageHeight/100*20;
+					tank.x = 175;
+					tank.scaleX = .4;
+					tank.scaleY = .4;
+					tank.addEventListener(TankEvent.TANK_DESTROYED, onTankEvent);
+					
+					lvl = new LevelOne();
+					addChild(lvl);
+					addChild(tank);
+					walls = new Vector.<Wall>;
+					
+					hud = new HUD();
+					addChild(hud);
+					stage.addEventListener(KeyboardEvent.KEY_DOWN, keyboardHandler);
+					stage.removeEventListener(KeyboardEvent.KEY_DOWN, spaceDown);
+					break;
 			}
 		}
 	}
