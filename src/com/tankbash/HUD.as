@@ -48,6 +48,7 @@
 			ammoType = new TextField();
 			ammoAmmount = new TextField();
 			health = new TextField();
+			instructions = new instructionsvisual() as Bitmap;
 			
 			score.defaultTextFormat = format;
 			ammoType.defaultTextFormat = format;
@@ -68,17 +69,21 @@
 			addChild(ammoType);
 			addChild(ammoAmmount);
 			addChild(health);
-			
-			instructions = new instructionsvisual() as Bitmap;
-			instructions.scaleX = .3;
-			instructions.scaleY = .3;
-			instructions.x = 100;
-			instructions.y = 50;
 			addChild(instructions);
 			
 			ammoType.x = Main.instance.stage.stageWidth - ammoType.width;
 			ammoAmmount.x = ammoType.x - ammoAmmount.width;
 			health.x = score.x + score.width;
+			
+			ammoType.y = Main.instance.stage.stageHeight - 20;
+			ammoAmmount.y = Main.instance.stage.stageHeight - 20;
+			health.y = Main.instance.stage.stageHeight - 20;
+			score.y = Main.instance.stage.stageHeight - 20;
+			
+			instructions.scaleX = .6;
+			instructions.scaleY = .6;
+			instructions.x = 20;
+			instructions.y = 20;
 			
 			Main.instance.tank.addEventListener(AmmoEvent.AMMO_CHANGE, onAmmoChange, false, 0, true);
 			Main.instance.tank.addEventListener(AmmoEvent.AMMO_FIRED, ammoFired, false, 0, true);

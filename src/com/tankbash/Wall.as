@@ -51,10 +51,10 @@
 			}
 			Main.instance.tank.addEventListener(AmmoEvent.AMMO_FIRED, onAmmoFire, false, 0, true);
 			
-			this.scaleX = .5;
-			this.scaleY = .5;
+			this.scaleX = 1;
+			this.scaleY = 1;
 			this.x = 1200;
-			this.y = Main.instance.stage.stageHeight-Main.instance.stage.stageHeight/100*25;
+			this.y = Main.instance.stage.stageHeight-Main.instance.stage.stageHeight/100*5 - this.height;
 			moveTween = TweenLite.to(this, Main.instance.timer.delay / 1000, { x: 0, ease: Linear.easeNone, onUpdate: onWallMove, onComplete: onMoveComplete } );
 			trace(Main.instance.timer.delay / 1000);
 		}
