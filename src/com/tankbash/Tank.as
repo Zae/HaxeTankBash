@@ -6,6 +6,7 @@
 	import flash.display.Loader;
 	import flash.display.Bitmap;
 	import flash.events.EventDispatcher;
+	import flash.media.Sound;
 	import com.greensock.TweenLite;
 	/**
 	 * ...
@@ -21,6 +22,22 @@
 		private var _ammo:Vector.<Ammo>;
 		private var _ammoType:String;
 		private var ammoFlying:Boolean = false;
+		
+		[Embed(source = "../../../assets/wpnChange.mp3")]
+		private var _wpnChange:Class;
+		
+		
+		[Embed(source = "../../../assets/rocket.mp3")]
+		private var _rocket:Class;
+		[Embed(source = "../../../assets/bullet.mp3")]
+		private var _bullet:Class;
+		[Embed(source = "../../../assets/tankbullet.mp3")]
+		private var _tankbullet:Class;
+		
+		private var wpnChange:Sound;
+		private var rocket:Sound;
+		private var bullet:Sound;
+		private var tankbullet:Sound;
 		
 		private var killed:Boolean = false;
 		
@@ -38,6 +55,11 @@
 			tank = new tank_niveau3();
 			addChild(tank);
 			
+			wpnChange = new _wpnChange();
+			rocket = new _rocket();
+			bullet = new _bullet();
+			tankbullet = new _tankbullet();
+			
 		}
 		private function onAmmoMove(e:AmmoEvent):void 
 		{
@@ -52,24 +74,28 @@
 				if (!this.ammoFlying)
 				{
 					var shootAllowed:Boolean = false;
+					var playSound:Sound;
 					switch (this._ammoType) 
 					{
 						case Ammo.TYPE_BULLETS:
 							if (Ammo.bullets_left > 0)
 							{
 								shootAllowed = true;
+								playSound = bullet;
 							}
 							break;
 						case Ammo.TYPE_CANNON:
 							if (Ammo.cannon_left > 0)
 							{
 								shootAllowed = true;
+								playSound = tankbullet;
 							}
 							break;
 						case Ammo.TYPE_ROCKET:
 							if (Ammo.rockets_left > 0)
 							{
 								shootAllowed = true;
+								playSound = rocket;
 							}
 							break;
 					}
@@ -83,6 +109,7 @@
 						this._ammo.push(newAmmo);
 						newAmmo.fire();
 						this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_FIRED, newAmmo, this._ammoType));
+						playSound.play();
 					}
 				}
 			}
@@ -128,6 +155,7 @@
 		{
 			_ammoType = setAmmo;
 			this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_CHANGE, null, this._ammoType));
+			wpnChange.play();
 		}
 		private function onAmmoDestroyed(e:AmmoEvent):void 
 		{

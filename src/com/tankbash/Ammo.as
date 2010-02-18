@@ -3,8 +3,9 @@
 	import com.greensock.TweenLite;
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.media.Sound;
 	
-	/**
+	/**  
 	 * ...
 	 * @author Ezra Pool
 	 * @version 0.1;
@@ -26,6 +27,9 @@
 		private static var BulletsVisual:Class;
 		[Embed(source="../../../assets/tank_bullet.png")]
 		private static var CannonVisual:Class;
+		[Embed(source = "../../../assets/impact.mp3")]
+		private var _impact:Class;
+		private var impact:Sound;
 		
 		private var _strength:int;
 		private var _ammoType:String;
@@ -49,6 +53,8 @@
 					_strength = Main.instance.settings.ammo.cannon.@strength;
 					break;
 			}
+			
+			impact = new _impact();
 		}
 		/**
 		 * 
@@ -90,6 +96,7 @@
 			trace("Hit something");
 			moveTween.kill();
 			this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_DESTROYED, this));
+			impact.play();
 		}
 		public function get strength():int
 		{
