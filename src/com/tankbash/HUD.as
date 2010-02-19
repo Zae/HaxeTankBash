@@ -18,9 +18,6 @@
 		[Embed(source = "../../../assets/ARDARLING.ttf", fontName = "ARDARLING", fontFamily = "ARDARLING", mimeType = "application/x-font-truetype")]
 		private var font:Class;
 		
-		[Embed(source = "../../../assets/instructions.png")]
-		private var instructionsvisual:Class;
-		
 		private var score:TextField;
 		private var ammoType:TextField;
 		private var ammoAmmount:TextField;
@@ -48,7 +45,6 @@
 			ammoType = new TextField();
 			ammoAmmount = new TextField();
 			health = new TextField();
-			instructions = new instructionsvisual() as Bitmap;
 			
 			score.defaultTextFormat = format;
 			ammoType.defaultTextFormat = format;
@@ -69,7 +65,6 @@
 			addChild(ammoType);
 			addChild(ammoAmmount);
 			addChild(health);
-			addChild(instructions);
 			
 			ammoType.x = Main.instance.stage.stageWidth - ammoType.width;
 			ammoAmmount.x = ammoType.x - ammoAmmount.width;
@@ -80,10 +75,6 @@
 			health.y = Main.instance.stage.stageHeight - 20;
 			score.y = Main.instance.stage.stageHeight - 20;
 			
-			instructions.scaleX = .6;
-			instructions.scaleY = .6;
-			instructions.x = 20;
-			instructions.y = 20;
 			
 			Main.instance.tank.addEventListener(AmmoEvent.AMMO_CHANGE, onAmmoChange, false, 0, true);
 			Main.instance.tank.addEventListener(AmmoEvent.AMMO_FIRED, ammoFired, false, 0, true);
@@ -125,10 +116,6 @@
 		{
 			scoreInt++;
 			score.text = 'Score: ' + scoreInt;
-			if (instructions)
-			{
-				TweenLite.to(instructions, 2, { alpha:0, onComplete: onAlphaComplete } );
-			}
 		}
 		private function onAlphaComplete():void 
 		{
