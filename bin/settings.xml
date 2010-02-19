@@ -12,10 +12,10 @@
 		<metal hp="40" strength="200" />
 		<concrete hp="90" strength="350" />
 	</wall>
-	<tank hp="500" />
+	<tank hp="1000" />
 	<ammo>
-		<bullets speed=".2" strength="10" startAmount="25" />
-		<rocket speed=".6" strength="40" startAmount="10" />
-		<cannon speed=".9" strength="70" startAmount="5" />
+		<bullets speed=".2" strength="10" startAmount="30" />
+		<rocket speed=".6" strength="40" startAmount="15" />
+		<cannon speed=".9" strength="70" startAmount="8" />
 	</ammo>
 </tankBash>
