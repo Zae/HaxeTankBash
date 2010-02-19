@@ -1,6 +1,7 @@
 ﻿package com.tankbash 
 {
 	import flash.display.Bitmap;
+	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.events.TextEvent;
 	import flash.text.TextField;
@@ -18,16 +19,27 @@
 		[Embed(source = "../../../assets/ARDARLING.ttf", fontName = "ARDARLING", fontFamily = "ARDARLING", mimeType = "application/x-font-truetype")]
 		private var font:Class;
 		
+		[Embed(source = "../../../assets/bullet_icon.png")]
+		private var bullet_icon:Class;
+		
+		[Embed(source = "../../../assets/cannon_icon.png")]
+		private var cannon_icon:Class;
+		
+		[Embed(source = "../../../assets/rocket_icon.png")]
+		private var rocket_icon:Class;
+		
 		private var score:TextField;
 		private var ammoType:TextField;
 		private var ammoAmmount:TextField;
 		private var format:TextFormat;
 		
-		private var instructions:Bitmap;
-		
 		private var health:TextField;
 		
 		private var scoreInt:int = 0;
+		
+		private var bullet_IconVisual:Bitmap;
+		private var rocket_IconVisual:Bitmap;
+		private var cannon_IconVisual:Bitmap;
 		
 		public function HUD() 
 		{
@@ -35,7 +47,11 @@
 		}
 		
 		private function init():void
-		{
+		{	
+			bullet_IconVisual = new bullet_icon();
+			rocket_IconVisual = new rocket_icon();
+			cannon_IconVisual = new cannon_icon();
+			
 			format = new TextFormat();
 			format.font = 'ARDARLING';
 			format.color = 0xffffff;
@@ -65,16 +81,31 @@
 			addChild(ammoType);
 			addChild(ammoAmmount);
 			addChild(health);
+			addChild(bullet_IconVisual);
 			
 			ammoType.x = Main.instance.stage.stageWidth - ammoType.width;
 			ammoAmmount.x = ammoType.x - ammoAmmount.width;
 			health.x = score.x + score.width;
 			
-			ammoType.y = Main.instance.stage.stageHeight - 20;
+			bullet_IconVisual.scaleX = .1;
+			bullet_IconVisual.scaleY = .1;
+			rocket_IconVisual.scaleX = .1;
+			rocket_IconVisual.scaleY = .1;
+			cannon_IconVisual.scaleX = .1;
+			cannon_IconVisual.scaleY = .1;
+			
+			bullet_IconVisual.x = Main.instance.stage.stageWidth - bullet_IconVisual.width;
+			rocket_IconVisual.x = Main.instance.stage.stageWidth - rocket_IconVisual.width;
+			cannon_IconVisual.x = Main.instance.stage.stageWidth - cannon_IconVisual.width;
+			
+			bullet_IconVisual.y = Main.instance.stage.stageHeight - bullet_IconVisual.height;
+			rocket_IconVisual.y = Main.instance.stage.stageHeight - rocket_IconVisual.height;
+			cannon_IconVisual.y = Main.instance.stage.stageHeight - cannon_IconVisual.height;
+			
+			//ammoType.y = Main.instance.stage.stageHeight - 20;
 			ammoAmmount.y = Main.instance.stage.stageHeight - 20;
 			health.y = Main.instance.stage.stageHeight - 20;
 			score.y = Main.instance.stage.stageHeight - 20;
-			
 			
 			Main.instance.tank.addEventListener(AmmoEvent.AMMO_CHANGE, onAmmoChange, false, 0, true);
 			Main.instance.tank.addEventListener(AmmoEvent.AMMO_FIRED, ammoFired, false, 0, true);
@@ -98,16 +129,31 @@
 				case Ammo.TYPE_BULLETS:
 					ammoType.text = 'Bullets';
 					ammoAmmount.text = Ammo.bullets_left + 'x';
+					
+					try { removeChild(cannon_IconVisual) } catch (err:Error){}
+					try { removeChild(rocket_IconVisual) } catch (err:Error){}
+					addChild(bullet_IconVisual);
+					
 					break;
 					
 				case Ammo.TYPE_ROCKET:
 					ammoType.text = 'Rockets';
 					ammoAmmount.text = Ammo.rockets_left + 'x';
+					
+					try { removeChild(cannon_IconVisual) } catch (err:Error){}
+					try { removeChild(bullet_IconVisual) } catch (err:Error){}
+					addChild(rocket_IconVisual);
+					
 					break;
 					
 				case Ammo.TYPE_CANNON:
 					ammoType.text = 'Cannonballs';
 					ammoAmmount.text = Ammo.cannon_left + 'x';
+					
+					try { removeChild(bullet_IconVisual) } catch (err:Error){}
+					try { removeChild(rocket_IconVisual) } catch (err:Error){}
+					addChild(cannon_IconVisual);
+					
 					break;
 			}
 		}
@@ -116,10 +162,6 @@
 		{
 			scoreInt++;
 			score.text = 'Score: ' + scoreInt;
-		}
-		private function onAlphaComplete():void 
-		{
-			instructions = null;
 		}
 		private function ammoFired(e:AmmoEvent):void
 		{			
