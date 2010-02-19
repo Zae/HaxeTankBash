@@ -31,6 +31,9 @@
 		[Embed(source = "../../../assets/health_icon.png")]
 		private var health_icon:Class;
 		
+		[Embed(source = "../../../assets/points_icon.png")]
+		private var points_icon:Class;
+		
 		private var score:TextField;
 		private var ammoType:TextField;
 		private var ammoAmmount:TextField;
@@ -44,6 +47,7 @@
 		private var rocket_IconVisual:Bitmap;
 		private var cannon_IconVisual:Bitmap;
 		private var health_IconVisual:Bitmap;
+		private var points_IconVisual:Bitmap;
 		
 		public function HUD() 
 		{
@@ -56,6 +60,7 @@
 			rocket_IconVisual = new rocket_icon();
 			cannon_IconVisual = new cannon_icon();
 			health_IconVisual = new health_icon();
+			points_IconVisual = new points_icon();
 			
 			format = new TextFormat();
 			format.font = 'ARDARLING';
@@ -87,7 +92,8 @@
 			addChild(ammoAmmount);
 			addChild(health);
 			addChild(bullet_IconVisual);
-			addChild(health_IconVisual);			
+			addChild(health_IconVisual);
+			addChild(points_IconVisual);
 			
 			bullet_IconVisual.scaleX = .1;
 			bullet_IconVisual.scaleY = .1;
@@ -97,6 +103,8 @@
 			cannon_IconVisual.scaleY = .1;
 			health_IconVisual.scaleX = .1;
 			health_IconVisual.scaleY = .1;
+			points_IconVisual.scaleX = .1;
+			points_IconVisual.scaleY = .1;
 			
 			score.x = Main.instance.stage.stageWidth - score.width;
 			
@@ -104,11 +112,13 @@
 			rocket_IconVisual.x = 10;
 			cannon_IconVisual.x = 10;
 			health_IconVisual.x = 10;
+			points_IconVisual.x = 10;
 			
 			ammoAmmount.x = 10;
 			health.x = 10;
 			score.x = 10;
 			
+			points_IconVisual.y = Main.instance.stage.stageHeight - 250 - points_IconVisual.height;
 			bullet_IconVisual.y = Main.instance.stage.stageHeight - 140 - bullet_IconVisual.height;
 			rocket_IconVisual.y = Main.instance.stage.stageHeight - 140 - rocket_IconVisual.height;
 			cannon_IconVisual.y = Main.instance.stage.stageHeight - 140 - cannon_IconVisual.height;
