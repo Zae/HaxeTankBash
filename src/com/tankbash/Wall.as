@@ -17,11 +17,11 @@
 		public static const TYPE_METAL:String = "WallType_Metal";
 		public static const TYPE_CONCRETE:String = "WallType_Concrete";
 		
-		[Embed(source="../../../assets/building_1.png")]//"../../../assets/wood_object.png")]
+		[Embed(source="../../../assets/muur_object.png")]//"../../../assets/wood_object.png")]
 		private static var WoodVisual:Class;
 		[Embed(source="../../../assets/metaal_object.png")]
 		private static var MetalVisual:Class;
-		[Embed(source="../../../assets/muur_object.png")]
+		[Embed(source="../../../assets/building_1.png")]
 		private static var ConcreteVisual:Class;
 		[Embed(source="../../../assets/warningLowEnergy.mp3")]
 		private var _sound:Class;

@@ -45,6 +45,8 @@
   <libraryPaths>
     <element path="assets\tank_niveau3.swc" />
     <element path="assets\explode.swc" />
+    <element path="assets\tank_niveau1.swc" />
+    <element path="assets\tank_niveau2.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

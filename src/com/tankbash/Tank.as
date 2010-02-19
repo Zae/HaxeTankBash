@@ -1,6 +1,7 @@
 ﻿package com.tankbash
 {
 	import explosion;
+	import flash.events.Event;
 	import tank_niveau3_af;
 	import flash.display.MovieClip;
 	import flash.net.URLRequest;
@@ -17,7 +18,7 @@
 	 */
 	public class Tank extends MovieClip
 	{
-		private var tank:tank_niveau3_af;
+		private var tank:*;
 		private var _explosion:explosion;
 		private var _health:int;
 		private var _ammo:Vector.<Ammo>;
@@ -26,8 +27,6 @@
 		
 		[Embed(source = "../../../assets/wpnChange.mp3")]
 		private var _wpnChange:Class;
-		
-		
 		[Embed(source = "../../../assets/rocket.mp3")]
 		private var _rocket:Class;
 		[Embed(source = "../../../assets/bullet.mp3")]
@@ -56,7 +55,7 @@
 			this._hp = Main.instance.settings.tank.@hp;
 			this._ammo = new Vector.<Ammo>;
 			this._ammoType = Ammo.TYPE_DEFAULT;
-			tank = new tank_niveau3_af();
+			tank = new tank_niveau1_af();
 			addChild(tank);
 			
 			wpnChange = new _wpnChange();
@@ -171,6 +170,34 @@
 			_ammoType = setAmmo;
 			this.dispatchEvent(new AmmoEvent(AmmoEvent.AMMO_CHANGE, null, this._ammoType));
 			wpnChange.play();
+			
+			tank.addEventListener(Event.COMPLETE, onWeaponDown);
+			tank.WeaponDown(null);
+		}
+		private function onWeaponDown(e:Event):void 
+		{
+			tank.removeEventListener(Event.COMPLETE, onWeaponDown);
+			removeChild(tank);
+			tank = null;
+			trace("AMMO:"+_ammoType);
+			switch (_ammoType) 
+			{
+				case Ammo.TYPE_BULLETS:
+					trace("niv1");
+					tank = new tank_niveau1_af();
+					addChild(tank);
+					break;
+				case Ammo.TYPE_CANNON:
+					trace("niv3");
+					tank = new tank_niveau3_af();
+					addChild(tank);
+					break;
+				case Ammo.TYPE_ROCKET:
+					trace("niv2");
+					tank = new tank_niveau2_af();
+					addChild(tank);
+					break;
+			}
 		}
 		private function onAmmoDestroyed(e:AmmoEvent):void 
 		{
