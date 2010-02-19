@@ -5,6 +5,7 @@
 	import flash.events.TimerEvent;
 	import com.greensock.easing.*;
 	import explosion;
+	import flash.media.Sound;
 	
 	/**
 	 * ...
@@ -22,6 +23,9 @@
 		private static var MetalVisual:Class;
 		[Embed(source="../../../assets/muur_object.png")]
 		private static var ConcreteVisual:Class;
+		[Embed(source="../../../assets/warningLowEnergy.mp3")]
+		private var _sound:Class;
+		private var sound:Sound;
 		
 		private var _hp:int;
 		private var _wallType:String;
@@ -60,6 +64,7 @@
 			this.y = Main.instance.stage.stageHeight-Main.instance.stage.stageHeight/100*5 - this.height;
 			moveTween = TweenLite.to(this, Main.instance.timer.delay / 1000, { x: 0, ease: Linear.easeNone, onUpdate: onWallMove, onComplete: onMoveComplete } );
 			trace(Main.instance.timer.delay / 1000);
+			sound = new _sound();
 		}
 		private function onMoveComplete():void 
 		{
@@ -73,6 +78,8 @@
 				Main.instance.tank.hit(this._strength);
 				if(Main.instance.tank.hp <= 0){
 					Main.instance.tank.destroy();
+				} else if (Main.instance.tank.hp <= Main.instance.settings.tank.@hp/2) {
+					sound.play();
 				}
 			}
 		}
