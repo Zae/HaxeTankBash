@@ -33,11 +33,14 @@
 		private var _bullet:Class;
 		[Embed(source = "../../../assets/tankbullet.mp3")]
 		private var _tankbullet:Class;
+		[Embed(source = "../../../assets/tankCrash.mp3")]
+		private var _tankCrash:Class;
 		
 		private var wpnChange:Sound;
 		private var rocket:Sound;
 		private var bullet:Sound;
 		private var tankbullet:Sound;
+		private var tankCrash:Sound;
 		
 		private var killed:Boolean = false;
 		
@@ -59,6 +62,7 @@
 			rocket = new _rocket();
 			bullet = new _bullet();
 			tankbullet = new _tankbullet();
+			tankCrash = new _tankCrash();
 			
 		}
 		private function onAmmoMove(e:AmmoEvent):void 
@@ -126,8 +130,10 @@
 		public function hit(strength:int):void 
 		{
 			this._hp -= strength;
-			trace("tank HP LEFT: "+this._hp);
+			trace("tank HP LEFT: " + this._hp);
+			tankCrash.play();
 			this.dispatchEvent(new TankEvent(TankEvent.TANK_HIT, this));
+			
 		}
 		/**
 		 * Get the current health
