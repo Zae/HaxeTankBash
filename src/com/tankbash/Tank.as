@@ -1,6 +1,6 @@
 ﻿package com.tankbash
 {
-	import tank_niveau3;
+	import tank_niveau3_af;
 	import flash.display.MovieClip;
 	import flash.net.URLRequest;
 	import flash.display.Loader;
@@ -16,7 +16,7 @@
 	 */
 	public class Tank extends MovieClip
 	{
-		private var tank:tank_niveau3;
+		private var tank:tank_niveau3_af;
 		
 		private var _health:int;
 		private var _ammo:Vector.<Ammo>;
@@ -52,7 +52,7 @@
 			this._hp = Main.instance.settings.tank.@hp;
 			this._ammo = new Vector.<Ammo>;
 			this._ammoType = Ammo.TYPE_DEFAULT;
-			tank = new tank_niveau3();
+			tank = new tank_niveau3_af();
 			addChild(tank);
 			
 			wpnChange = new _wpnChange();
