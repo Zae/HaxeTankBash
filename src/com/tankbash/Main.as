@@ -79,13 +79,13 @@
 			addChild(tmp);
 			tmp.addEventListener(WallEvent.WALL_DESTROYED, onWallEvent);
 			walls.push(tmp);
-			if (timer.delay > 5000)
+			if (timer.delay > 3000)
 			{
 				timer.delay -= 700;
 			}else if (timer.delay > 2000)
 			{
 				timer.delay -= 300;
-			}else if (timer.delay > 900)
+			}else if (timer.delay > 1500)
 			{
 				timer.delay -= 100;
 			}
