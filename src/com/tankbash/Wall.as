@@ -4,6 +4,7 @@
 	import flash.display.MovieClip;
 	import flash.events.TimerEvent;
 	import com.greensock.easing.*;
+	import explosion;
 	
 	/**
 	 * ...
@@ -27,6 +28,8 @@
 		private var _strength:int;
 		
 		private var moveTween:TweenLite;
+		
+		private var _explosion:explosion;
 		
 		public function Wall(wallType:String) 
 		{
@@ -91,6 +94,13 @@
 					this.destroyed();
 				}else {
 					trace(this._hp + " left");
+					if (_explosion)
+					{
+						this.removeChild(this._explosion);
+					}
+					this._explosion = new explosion();
+					this.addChild(this._explosion);
+					this._explosion.y = 100;
 				}
 			}
 		}

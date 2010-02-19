@@ -9,7 +9,7 @@
     <movie width="1000" />
     <movie height="400" />
     <movie version="10" />
-    <movie background="#000000" />
+    <movie background="#FFFFFF" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
@@ -44,6 +44,7 @@
   <!-- SWC Libraries -->
   <libraryPaths>
     <element path="assets\tank_niveau3.swc" />
+    <element path="assets\explode.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>
