@@ -1,5 +1,6 @@
 ﻿package com.tankbash
 {
+	import explosion;
 	import tank_niveau3_af;
 	import flash.display.MovieClip;
 	import flash.net.URLRequest;
@@ -65,7 +66,7 @@
 			tankCrash = new _tankCrash();
 			
 		}
-		private function onAmmoMove(e:AmmoEvent):void 
+		private function onAmmoMove(e:AmmoEvent):void  
 		{
 			this.dispatchEvent(e);  
 		}
