@@ -18,7 +18,7 @@
 	public class Tank extends MovieClip
 	{
 		private var tank:tank_niveau3_af;
-		
+		private var _explosion:explosion;
 		private var _health:int;
 		private var _ammo:Vector.<Ammo>;
 		private var _ammoType:String;
@@ -133,6 +133,14 @@
 			this._hp -= strength;
 			trace("tank HP LEFT: " + this._hp);
 			tankCrash.play();
+			if (_explosion)
+			{
+				this.removeChild(this._explosion);
+			}
+			this._explosion = new explosion();
+			this.addChild(this._explosion);
+			this._explosion.x = 100;
+			this._explosion.y = 20;
 			this.dispatchEvent(new TankEvent(TankEvent.TANK_HIT, this));
 			
 		}
