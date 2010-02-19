@@ -28,6 +28,9 @@
 		[Embed(source = "../../../assets/rocket_icon.png")]
 		private var rocket_icon:Class;
 		
+		[Embed(source = "../../../assets/health_icon.png")]
+		private var health_icon:Class;
+		
 		private var score:TextField;
 		private var ammoType:TextField;
 		private var ammoAmmount:TextField;
@@ -40,6 +43,7 @@
 		private var bullet_IconVisual:Bitmap;
 		private var rocket_IconVisual:Bitmap;
 		private var cannon_IconVisual:Bitmap;
+		private var health_IconVisual:Bitmap;
 		
 		public function HUD() 
 		{
@@ -51,6 +55,7 @@
 			bullet_IconVisual = new bullet_icon();
 			rocket_IconVisual = new rocket_icon();
 			cannon_IconVisual = new cannon_icon();
+			health_IconVisual = new health_icon();
 			
 			format = new TextFormat();
 			format.font = 'ARDARLING';
@@ -78,14 +83,11 @@
 			health.text = Main.instance.tank.hp + "HP";
 			
 			addChild(score);
-			addChild(ammoType);
+			//addChild(ammoType);
 			addChild(ammoAmmount);
 			addChild(health);
 			addChild(bullet_IconVisual);
-			
-			ammoType.x = Main.instance.stage.stageWidth - ammoType.width;
-			ammoAmmount.x = ammoType.x - ammoAmmount.width;
-			health.x = score.x + score.width;
+			addChild(health_IconVisual);			
 			
 			bullet_IconVisual.scaleX = .1;
 			bullet_IconVisual.scaleY = .1;
@@ -93,19 +95,28 @@
 			rocket_IconVisual.scaleY = .1;
 			cannon_IconVisual.scaleX = .1;
 			cannon_IconVisual.scaleY = .1;
+			health_IconVisual.scaleX = .1;
+			health_IconVisual.scaleY = .1;
 			
-			bullet_IconVisual.x = Main.instance.stage.stageWidth - bullet_IconVisual.width;
-			rocket_IconVisual.x = Main.instance.stage.stageWidth - rocket_IconVisual.width;
-			cannon_IconVisual.x = Main.instance.stage.stageWidth - cannon_IconVisual.width;
+			score.x = Main.instance.stage.stageWidth - score.width;
 			
-			bullet_IconVisual.y = Main.instance.stage.stageHeight - bullet_IconVisual.height;
-			rocket_IconVisual.y = Main.instance.stage.stageHeight - rocket_IconVisual.height;
-			cannon_IconVisual.y = Main.instance.stage.stageHeight - cannon_IconVisual.height;
+			bullet_IconVisual.x = 10;
+			rocket_IconVisual.x = 10;
+			cannon_IconVisual.x = 10;
+			health_IconVisual.x = 10;
 			
-			//ammoType.y = Main.instance.stage.stageHeight - 20;
-			ammoAmmount.y = Main.instance.stage.stageHeight - 20;
-			health.y = Main.instance.stage.stageHeight - 20;
-			score.y = Main.instance.stage.stageHeight - 20;
+			ammoAmmount.x = 10;
+			health.x = 10;
+			score.x = 10;
+			
+			bullet_IconVisual.y = Main.instance.stage.stageHeight - 140 - bullet_IconVisual.height;
+			rocket_IconVisual.y = Main.instance.stage.stageHeight - 140 - rocket_IconVisual.height;
+			cannon_IconVisual.y = Main.instance.stage.stageHeight - 140 - cannon_IconVisual.height;
+			health_IconVisual.y = Main.instance.stage.stageHeight - 30 - health_IconVisual.height;
+			
+			ammoAmmount.y = Main.instance.stage.stageHeight - 140;
+			health.y = Main.instance.stage.stageHeight - 30;
+			score.y = Main.instance.stage.stageHeight - 250;
 			
 			Main.instance.tank.addEventListener(AmmoEvent.AMMO_CHANGE, onAmmoChange, false, 0, true);
 			Main.instance.tank.addEventListener(AmmoEvent.AMMO_FIRED, ammoFired, false, 0, true);

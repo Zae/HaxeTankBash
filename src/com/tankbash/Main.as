@@ -157,7 +157,7 @@
 					
 					tank = new Tank();
 					tank.y = stage.stageHeight - stage.stageHeight/100*20;
-					tank.x = 175;
+					tank.x = 275;
 					tank.scaleX = .4;
 					tank.scaleY = .4;
 					tank.addEventListener(TankEvent.TANK_DESTROYED, onTankEvent);
