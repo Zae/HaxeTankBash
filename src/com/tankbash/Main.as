@@ -84,10 +84,10 @@
 				timer.delay -= 700;
 			}else if (timer.delay > 2000)
 			{
-				timer.delay -= 500;
+				timer.delay -= 300;
 			}else if (timer.delay > 900)
 			{
-				timer.delay -= 300;
+				timer.delay -= 100;
 			}
 		}
 		private function onWallEvent(e:WallEvent):void 
